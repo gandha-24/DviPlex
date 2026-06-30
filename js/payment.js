@@ -37,7 +37,11 @@ export async function startPayment(order) {
     });
 
     if (response.ok) {
-      const data = await response.json();
+      const resText = await response.text();
+      let data = {};
+      try {
+        data = JSON.parse(resText);
+      } catch (_) {}
       return {
         success: data.success ?? true,
         paymentId: data.paymentId || `PAY_GATE_${Date.now()}`,

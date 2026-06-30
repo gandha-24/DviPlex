@@ -7,11 +7,11 @@
  */
 
 export const CONFIG = {
-  // Cloudflare Pages Function / Netlify Function API Endpoints
-  UPLOAD_ENDPOINT: '/.netlify/functions/upload-images',
-  SAVE_ORDER_ENDPOINT: '/.netlify/functions/save-order',
-  PAYMENT_ENDPOINT: '/.netlify/functions/start-payment',
-  EMAIL_ENDPOINT: '/.netlify/functions/send-email',
+  // Cloudflare Pages Function API Endpoints
+  UPLOAD_ENDPOINT: '/api/upload-images',
+  SAVE_ORDER_ENDPOINT: '/api/save-order',
+  PAYMENT_ENDPOINT: '/api/start-payment',
+  EMAIL_ENDPOINT: '/api/send-email',
 
   // Validation constants
   MAX_FILE_SIZE_BYTES: 10 * 1024 * 1024, // 10 MB per image

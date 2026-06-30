@@ -35,20 +35,35 @@ export async function uploadImages(files, onProgress = null) {
 
     if (onProgress) onProgress(80); // Processing on the server
 
-    const data = await response.json();
-
     if (!response.ok) {
-      const errorMsg = data?.error || `Upload error (HTTP ${response.status})`;
-      throw new Error(errorMsg);
+      const rawText = await response.text().catch(() => '');
+      let errMsg = `Upload error (HTTP ${response.status})`;
+      try {
+        const errorJson = JSON.parse(rawText);
+        errMsg = errorJson.error || errMsg;
+      } catch (_) {
+        if (rawText && rawText.length < 150) {
+          errMsg = rawText;
+        }
+      }
+      throw new Error(errMsg);
     }
 
-    if (!data.urls || !Array.isArray(data.urls)) {
+    const resText = await response.text();
+    let data;
+    try {
+      data = JSON.parse(resText);
+    } catch (parseErr) {
+      throw new Error('Failed to parse response from upload service.');
+    }
+
+    if (!data.imageUrls || !Array.isArray(data.imageUrls)) {
       throw new Error('Invalid response payload from upload service.');
     }
 
     if (onProgress) onProgress(100);
 
-    return data.urls;
+    return data.imageUrls;
   } catch (err) {
     console.error('[Upload Service] Image upload failure:', err);
     throw new Error(err.message || 'Image upload failed. Please try again.');

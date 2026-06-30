@@ -1,12 +1,9 @@
 {
   "name": "dviplex-website",
   "version": "1.0.0",
-  "description": "DviPlex Custom Digital Portraits — serverless function dependencies",
+  "description": "DviPlex Custom Digital Portraits",
   "private": true,
-  "dependencies": {
-    "busboy": "^1.6.0",
-    "cloudinary": "^1.41.3"
-  },
+  "dependencies": {},
   "engines": {
     "node": ">=18"
   }

@@ -27,10 +27,30 @@ export async function saveOrder(orderPayload) {
       body: JSON.stringify(orderPayload)
     });
 
-    const data = await response.json();
+    if (!response.ok) {
+      const rawText = await response.text().catch(() => '');
+      let errMsg = `Save failed (HTTP ${response.status})`;
+      try {
+        const errorJson = JSON.parse(rawText);
+        errMsg = errorJson.error || errMsg;
+      } catch (_) {
+        if (rawText && rawText.length < 150) {
+          errMsg = rawText;
+        }
+      }
+      throw new Error(errMsg);
+    }
 
-    if (!response.ok || data.success === false) {
-      throw new Error(data.error || `Save failed (HTTP ${response.status})`);
+    const resText = await response.text();
+    let data;
+    try {
+      data = JSON.parse(resText);
+    } catch (_) {
+      throw new Error('Failed to parse response from order service.');
+    }
+
+    if (data.success === false) {
+      throw new Error(data.error || 'Order could not be saved.');
     }
 
     return {
