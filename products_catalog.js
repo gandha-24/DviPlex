@@ -15,7 +15,7 @@ const PRODUCTS_CATALOG = [
     ],
     "thumbnail": "Products/Anime/Cat/1.png",
     "originalPrice": 199,
-    "price": 99,
+    "price": 9,
     "rating": 4.4,
     "reviews": 26,
     "description": "A stunning, personalized Japanese anime-style portrait featuring your beloved cat. Handcrafted with clean line art, vibrant cell shading, and custom aesthetic backgrounds."
@@ -1537,3 +1537,5 @@ const PRODUCTS_CATALOG = [
     "description": "A highly personalized photo collage word art featuring your beloved pet. Multiple photo references are masterfully blended inside custom typographic word shapes for a memorable gift."
   }
 ];
+
+window.PRODUCTS_CATALOG = PRODUCTS_CATALOG;
