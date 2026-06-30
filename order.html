@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order | DviPlex Custom Digital Portraits</title>
+  <meta name="description" content="Place your custom digital portrait order at DviPlex. Premium handcrafted digital art delivered within 5 hours." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Great+Vibes&family=Pinyon+Script&family=Tangerine:wght@400;700&family=Sacramento&family=Allura&family=Alex+Brush&family=Pacifico&family=Caveat:wght@400;700&family=Dancing+Script:wght@400;700&family=Kaushan+Script&family=Yellowtail&family=Satisfy&display=swap" rel="stylesheet" />
+  <style>
+    /* ──────────── RESET & BASE ──────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:           #f8f7ff;
+      --surface:      #ffffff;
+      --surface2:     #f4f3fd;
+      --border:       #e8e6f8;
+      --primary:      #7F77DD;
+      --primary-light:#EEEDFE;
+      --primary-dark: #534AB7;
+      --accent:       #FF90E8;
+      --text:         #1a1a1a;
+      --muted:        #777;
+      --muted2:       #aaa;
+      --success:      #22c55e;
+      --error:        #e53935;
+      --radius:       14px;
+      --radius-sm:    10px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
+
+    /* ──────────── NAV ──────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px; background: #fff; border-bottom: 1px solid #e8e8e8;
+    }
+    .nav-logo { font-size: 22px; font-weight: 700; color: #1a1a1a; text-decoration: none; letter-spacing: -0.5px; }
+    .nav-logo span { color: #7F77DD; }
+    .nav-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #555; text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: #7F77DD; }
+
+    /* ──────────── PAGE HERO ──────────── */
+    .page-hero {
+      text-align: center; padding: 52px 20px 40px;
+      background: linear-gradient(135deg, #f8f7ff 0%, #fff 60%);
+      border-bottom: 1px solid #e8e6f8;
+    }
+    .page-badge { display: inline-flex; align-items: center; gap: 6px; background: #EEEDFE; color: #534AB7; font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; }
+    .page-title { font-size: 38px; font-weight: 700; line-height: 1.15; color: #1a1a1a; margin-bottom: 10px; letter-spacing: -0.5px; }
+    .page-title span { color: #7F77DD; }
+    .page-subtitle { font-size: 15px; color: #666; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    /* Trust strip */
+    .trust-strip { background: #1a1a1a; padding: 12px 24px; display: flex; align-items: center; justify-content: center; gap: 36px; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 7px; color: #ccc; font-size: 12px; font-weight: 500; }
+    .trust-item .ti { color: #7F77DD; }
+
+    /* ──────────── MAIN GRID ──────────── */
+    .order-wrap { max-width: 1140px; margin: 36px auto; padding: 0 24px 60px; display: grid; grid-template-columns: 1fr 340px; gap: 28px; align-items: start; }
+
+    /* ──────────── CARD ──────────── */
+    .card { background: #fff; border: 1px solid #e8e6f8; border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 14px rgba(127,119,221,0.08); }
+    .card-head { padding: 18px 22px 14px; border-bottom: 1px solid #f0effe; display: flex; align-items: center; gap: 10px; background: #fdfcff; }
+    .card-head-icon { font-size: 18px; }
+    .card-head-title { font-size: 15px; font-weight: 700; color: #1a1a1a; }
+    .card-body { padding: 22px; }
+
+    /* ──────────── PRODUCT MINI-CARD ──────────── */
+    .product-mini { display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; background: #f8f7ff; border: 1px solid #e8e6f8; border-radius: var(--radius-sm); margin-bottom: 22px; }
+    .product-mini img { width: 68px; height: 68px; object-fit: cover; border-radius: 8px; flex-shrink: 0; border: 1px solid #e8e6f8; }
+    .product-mini-cat { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #534AB7; margin-bottom: 4px; }
+    .product-mini-name { font-size: 14px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; line-height: 1.3; }
+    .product-mini-price { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+    .price-now { font-size: 18px; font-weight: 800; color: #7F77DD; }
+    .price-was { font-size: 12px; color: #aaa; text-decoration: line-through; }
+    .price-badge { font-size: 10px; font-weight: 700; color: #e53935; background: #fde8e8; padding: 2px 7px; border-radius: 4px; }
+
+    /* ──────────── FORM ──────────── */
+    .form-section { margin-bottom: 28px; }
+    .form-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #aaa; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .form-section-title::after { content: ''; flex: 1; height: 1px; background: #e8e6f8; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-grid.single { grid-template-columns: 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 13px; font-weight: 600; color: #444; }
+    .form-label .req { color: var(--error); margin-left: 2px; }
+    .form-label .opt { font-size: 11px; font-weight: 400; color: #aaa; margin-left: 4px; }
+    .form-control { background: #fff; border: 1.5px solid #dddaf5; border-radius: var(--radius-sm); padding: 11px 14px; color: #1a1a1a; font-family: inherit; font-size: 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; width: 100%; }
+    .form-control::placeholder { color: #bbb; }
+    .form-control:focus { border-color: #7F77DD; box-shadow: 0 0 0 3px rgba(127,119,221,0.10); }
+    .form-control.error { border-color: var(--error); box-shadow: 0 0 0 3px rgba(229,57,53,0.07); }
+    select.form-control { -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+    select.form-control option { background: #fff; color: #1a1a1a; }
+    textarea.form-control { resize: vertical; min-height: 88px; }
+
+    /* ──────────── ERROR MESSAGE ──────────── */
+    .field-error { font-size: 12px; color: var(--error); margin-top: 3px; display: none; font-weight: 500; }
+    .field-error.visible { display: block; }
+
+    /* ──────────── UPLOAD ZONE ──────────── */
+    .upload-zone { border: 2px dashed #ccc9f0; border-radius: var(--radius-sm); padding: 32px 20px; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; position: relative; background: #faf9ff; }
+    .upload-zone:hover, .upload-zone.dragover { border-color: #7F77DD; background: #EEEDFE; }
+    .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .upload-icon { font-size: 32px; margin-bottom: 10px; }
+    .upload-label { font-size: 14px; color: #333; font-weight: 600; }
+    .upload-label span { color: #7F77DD; }
+    .upload-hint { font-size: 12px; color: #999; margin-top: 5px; }
+    .upload-limit-badge { display: inline-block; margin-top: 10px; background: #EEEDFE; border: 1px solid #c8c4f5; color: #534AB7; font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 12px; }
+
+    /* ──────────── IMAGE PREVIEWS ──────────── */
+    .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 10px; margin-top: 14px; }
+    .preview-item { position: relative; border-radius: 8px; overflow: hidden; background: #f4f3fd; border: 1px solid #e0defa; }
+    .preview-item img { width: 100%; height: 82px; object-fit: cover; display: block; }
+    .preview-item .remove-btn { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.5); color: #fff; border: none; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .preview-item .remove-btn:hover { background: #e53935; }
+    .preview-item .file-name { font-size: 10px; color: #888; padding: 4px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* ──────────── SUBMIT BUTTON ──────────── */
+    .btn-submit { width: 100%; padding: 15px; background: #7F77DD; color: #fff; font-family: inherit; font-size: 15px; font-weight: 700; border: none; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s, transform 0.15s, box-shadow 0.15s; box-shadow: 0 4px 16px rgba(127,119,221,0.28); }
+    .btn-submit:hover { background: #6b63cc; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(127,119,221,0.38); }
+    .btn-submit:active { transform: translateY(0); }
+    .btn-submit:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    /* ──────────── SIDEBAR ──────────── */
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar .card + .card { margin-top: 16px; }
+    .order-summary-row { display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; padding: 10px 0; border-bottom: 1px solid #f0effe; }
+    .order-summary-row:last-child { border-bottom: none; }
+    .order-summary-row .label { color: #777; }
+    .order-summary-row .value { font-weight: 700; color: #1a1a1a; }
+    .order-summary-row.discount .label,.order-summary-row.discount .value { color: #22c55e; }
+    .order-summary-row.total .label { font-size: 15px; font-weight: 700; color: #1a1a1a; }
+    .order-summary-row.total .value { font-size: 20px; color: #7F77DD; }
+    .deal-badge { margin-top: 14px; text-align: center; padding: 10px 12px; background: #fff4f4; border: 1px solid #fcc; border-radius: 8px; font-size: 12px; color: #555; }
+    .deal-badge strong { color: #1a1a1a; }
+    .policy-points { display: flex; flex-direction: column; gap: 11px; }
+    .policy-point { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: #666; }
+    .policy-point .icon { font-size: 15px; flex-shrink: 0; margin-top: 2px; }
+
+    /* ──────────── LOADING OVERLAY ──────────── */
+    .loading-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(255,255,255,0.85); align-items: center; justify-content: center; flex-direction: column; gap: 16px; backdrop-filter: blur(6px); }
+    .loading-overlay.active { display: flex; }
+    .spinner { width: 48px; height: 48px; border: 4px solid #e0defa; border-top-color: #7F77DD; border-radius: 50%; animation: spin 0.85s linear infinite; }
+    .loading-text { font-size: 14px; font-weight: 600; color: #777; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ──────────── SUCCESS PAGE ──────────── */
+    .success-page { display: none; max-width: 520px; margin: 80px auto; padding: 24px; text-align: center; }
+    .success-page.active { display: block; }
+    .success-checkmark { width: 82px; height: 82px; border-radius: 50%; background: #ecfdf5; border: 2px solid #22c55e; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 28px; animation: popIn 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
+    @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .success-title { font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+    .success-sub { font-size: 15px; color: #777; margin-bottom: 28px; }
+    .order-id-card { background: #f8f7ff; border: 1.5px solid #d8d4f5; border-radius: var(--radius); padding: 24px; margin-bottom: 22px; }
+    .order-id-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #aaa; margin-bottom: 8px; }
+    .order-id-value { font-size: 30px; font-weight: 800; color: #7F77DD; letter-spacing: 3px; }
+    .success-info { font-size: 14px; color: #777; line-height: 1.75; margin-bottom: 28px; }
+    .btn-home { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: var(--radius-sm); background: #7F77DD; color: #fff; font-family: inherit; font-size: 15px; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; box-shadow: 0 4px 16px rgba(127,119,221,0.28); }
+    .btn-home:hover { background: #6b63cc; transform: translateY(-1px); }
+
+    /* ════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .nav { padding: 14px 28px; }
+      .order-wrap { grid-template-columns: 1fr 290px; gap: 22px; padding: 0 20px 48px; margin-top: 28px; }
+      .sidebar { position: static; }
+    }
+    @media (max-width: 900px) {
+      .order-wrap { grid-template-columns: 1fr; }
+      .sidebar { order: -1; }
+      .page-title { font-size: 28px; }
+      .page-hero { padding: 36px 20px 28px; }
+      .trust-strip { gap: 20px; padding: 12px 16px; }
+    }
+    @media (max-width: 640px) {
+      .nav { padding: 12px 16px; }
+      .nav-logo { font-size: 18px; }
+      .page-hero { padding: 26px 14px 22px; }
+      .page-title { font-size: 22px; }
+      .page-subtitle { font-size: 13px; }
+      .order-wrap { padding: 0 12px 32px; margin-top: 18px; gap: 16px; }
+      .card-body { padding: 16px; }
+      .card-head { padding: 13px 16px 11px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .product-mini img { width: 54px; height: 54px; }
+      .product-mini-name { font-size: 13px; }
+      .price-now { font-size: 16px; }
+      .btn-submit { font-size: 14px; padding: 13px; }
+      .trust-strip { flex-direction: column; gap: 8px; padding: 14px; }
+      .success-page { margin: 36px auto; }
+      .success-title { font-size: 24px; }
+      .order-id-value { font-size: 22px; }
+    }
+    @media (max-width: 380px) {
+      .page-title { font-size: 19px; }
+      .nav-logo { font-size: 16px; }
+      .product-mini { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ──────────── UPLOAD PROGRESS ──────────── */
+    .upload-progress-bar { height: 4px; background: #e0defa; border-radius: 2px; margin-top: 10px; overflow: hidden; display: none; }
+    .upload-progress-bar.active { display: block; }
+    .upload-progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #7F77DD, #FF90E8); border-radius: 2px; transition: width 0.3s ease; }
+  </style>
+
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">Dvi<span>Plex</span></a>
+    <a href="index.html" class="nav-back">← Back to Gallery</a>
+  </nav>
+
+  <!-- SUCCESS PAGE (hidden initially) -->
+  <div class="success-page" id="successPage">
+    <div class="success-checkmark">✓</div>
+    <h1 class="success-title">Thank You!</h1>
+    <p class="success-sub">Your order has been received successfully.</p>
+    <div class="order-id-card">
+      <div class="order-id-label">Your Order ID</div>
+      <div class="order-id-value" id="displayOrderId">ORD000001</div>
+    </div>
+    <p class="success-info">
+      We have received your order details and will begin processing your custom artwork shortly.<br><br>
+      You will be notified on your email once your artwork is ready. Your personalized portrait will be delivered <strong>within 5 hours</strong>.
+    </p>
+    <a href="index.html" class="btn-home">← Return to Gallery</a>
+  </div>
+
+  <!-- MAIN FORM (visible initially) -->
+  <div id="orderFormWrap">
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+      <div class="page-badge">🎨 Custom Order</div>
+      <h1 class="page-title">Complete Your <span>Portrait Order</span></h1>
+      <p class="page-subtitle">Fill in your details below. Your personalized artwork will be delivered within 5 hours.</p>
+    </div>
+    <!-- Trust Strip -->
+    <div class="trust-strip">
+      <div class="trust-item"><span class="ti">⚡</span> Delivered in 5 Hours</div>
+      <div class="trust-item"><span class="ti">🖼️</span> 100% Digital — 300 DPI</div>
+      <div class="trust-item"><span class="ti">🔄</span> Free Revisions Included</div>
+      <div class="trust-item"><span class="ti">🔒</span> Secure Checkout</div>
+    </div>
+
+    <!-- FORM GRID -->
+    <div class="order-wrap">
+
+      <!-- LEFT: FORM -->
+      <div>
+
+        <!-- 1. PRODUCT PREVIEW -->
+        <div class="product-mini" id="productMini">
+          <img id="productThumb" src="" alt="Product">
+          <div class="product-mini-info">
+            <div class="product-mini-cat" id="productCat">Loading…</div>
+            <div class="product-mini-name" id="productName">Loading product…</div>
+            <div class="product-mini-price">
+              <span class="price-now" id="priceNow">₹99</span>
+              <span class="price-was" id="priceWas">₹199</span>
+              <span class="price-badge">50% OFF</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ORDER FORM -->
+        <form id="orderForm" novalidate>
+
+          <!-- ── CONTACT DETAILS ── -->
+          <div class="form-section">
+            <div class="form-section-title">Contact Details</div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="fullName">Full Name <span class="req">*</span></label>
+                <input type="text" id="fullName" name="fullName" class="form-control" placeholder="e.g. Priya Sharma" autocomplete="name" required />
+                <span class="field-error" id="err-fullName">Please enter your full name.</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="whatsapp">WhatsApp Number <span class="req">*</span></label>
+                <input type="tel" id="whatsapp" name="whatsapp" class="form-control" placeholder="+91 98765 43210" autocomplete="tel" required />
+                <span class="field-error" id="err-whatsapp">Please enter a valid WhatsApp number.</span>
+              </div>
+            </div>
+            <div class="form-grid single" style="margin-top:16px;">
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address <span class="req">*</span></label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="e.g. priya@example.com" autocomplete="email" required />
+                <span class="field-error" id="err-email">Please enter a valid email address.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── PRODUCT-SPECIFIC DYNAMIC FIELDS ── -->
+          <div class="form-section">
+            <div class="form-section-title">Artwork Customization</div>
+            <div id="dynamicFields">
+              <!-- Injected by JS based on product category -->
+            </div>
+          </div>
+
+          <!-- ── IMAGE UPLOAD ── -->
+          <div class="form-section">
+            <div class="form-section-title">Reference Photo Upload</div>
+            <div id="uploadSection">
+              <div class="upload-zone" id="uploadZone">
+                <input type="file" id="photoInput" name="photos" accept=".jpg,.jpeg,.png,.webp,.heic" multiple />
+                <div class="upload-icon">📤</div>
+                <div class="upload-label"><span>Click to upload</span> or drag & drop your photos</div>
+                <div class="upload-hint">Accepted: JPG, JPEG, PNG, WEBP, HEIC · Max 10 MB per image</div>
+                <div class="upload-limit-badge" id="uploadLimitBadge">Max 1 image</div>
+              </div>
+              <span class="field-error" id="err-photos" style="margin-top:6px;"></span>
+              <!-- Upload progress bar (shown during submission) -->
+              <div class="upload-progress-bar" id="uploadProgressBar">
+                <div class="upload-progress-fill" id="uploadProgressFill"></div>
+              </div>
+              <div class="preview-grid" id="previewGrid"></div>
+            </div>
+          </div>
+
+          <!-- ── SUBMIT ── -->
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span>Submit Order</span> <span>→</span>
+          </button>
+
+        </form>
+      </div>
+
+      <!-- RIGHT: SIDEBAR -->
+      <div class="sidebar">
+
+        <!-- Order Summary -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-icon">🧾</span>
+            <span class="card-head-title">Order Summary</span>
+          </div>
+          <div class="card-body">
+            <div class="order-summary-row">
+              <span class="label">Artwork Total</span>
+              <span class="value" id="summaryOriginal">₹199</span>
+            </div>
+            <div class="order-summary-row discount">
+              <span class="label">50% Special Offer</span>
+              <span class="value" id="summaryDiscount">−₹100</span>
+            </div>
+            <div class="order-summary-row total">
+              <span class="label">Total</span>
+              <span class="value" id="summaryTotal">₹99</span>
+            </div>
+            <div class="deal-badge">
+              ⏱️ <strong>Limited Time Deal</strong> — 50% OFF on all styles!
+            </div>
+          </div>
+        </div>
+
+        <!-- Delivery Policy -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-head-icon">📦</span>
+            <span class="card-head-title">Delivery Policy</span>
+          </div>
+          <div class="card-body">
+            <div class="policy-points">
+              <div class="policy-point"><span class="icon">⚡</span><span>Delivered to your email within <strong style="color:var(--text)">5 hours</strong> of confirmed order.</span></div>
+              <div class="policy-point"><span class="icon">🖼️</span><span><strong style="color:var(--text)">100% digital delivery</strong> — High-resolution 300 DPI files only.</span></div>
+              <div class="policy-point"><span class="icon">🔄</span><span>Free revisions included — we'll perfect your artwork until you're satisfied.</span></div>
+              <div class="policy-point"><span class="icon">🚫</span><span>No physical prints shipped. No returns or refunds on digital custom art.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Sheets Config (Admin Only) -->
+        <div class="card" style="border-color: rgba(127,119,221,0.15);">
+          <div class="card-head" style="cursor:pointer;" onclick="toggleSheetConfig()">
+            <span class="card-head-icon">⚙️</span>
+            <span class="card-head-title" style="font-size:13px;color:var(--muted);">Sheet Integration (Admin)</span>
+            <span style="margin-left:auto;font-size:12px;color:var(--muted);" id="configToggleLabel">▼ Show</span>
+          </div>
+          <div class="card-body" id="sheetConfigPanel" style="display:none;">
+            <p style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5;">Paste your Google Apps Script Web App URL to auto-sync orders to your spreadsheet.</p>
+            <input type="text" id="sheetUrl" class="form-control" placeholder="https://script.google.com/macros/s/.../exec" style="font-size:12px;" />
+            <p style="font-size:11px;color:#444;margin-top:6px;">Leave blank to see order data in browser console only.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LOADING OVERLAY -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text">Submitting your order…</div>
+  </div>
+
+  <!-- LOAD CATALOG -->
+  <script src="products_catalog.js"></script>
+
+  <!-- Upload module (ES module — hoisted before the main inline script) -->
+  <script type="module">
+    import { uploadImages } from './js/upload.js';
+    // Expose on window so the classic inline script below can call it
+    window.__dviplexUploadImages = uploadImages;
+  </script>
+
+  <script>
+  /* ════════════════════════════════════════════
+     WORD ART PHOTO LIMITS
+     Key = subfolder name (lowercase)
+  ════════════════════════════════════════════ */
+  const WORDART_LIMITS = {
+    default: 1,
+    'single': 1,
+    'couple': 2,
+    'mom': 3,
+    'dad': 3,
+    'baby': 4,
+    'sibling': 4,
+    'siblings': 4,
+    'family': 6,
+    'friends': 5,
+    'grandparents': 4,
+    'grandparent': 4,
+    'love': 4,   // updated: 4 images
+    'home': 4,   // 4 images
+    'dog': 3,    // 3 images
+    'cat': 3,    // 3 images
+    'pet': 3,    // 3 images
+  };
+
+  /* ════════════════════════════════════════════
+     MULTI-PERSON SUBFOLDER NAMES
+     These subfolders contain 2+ people → allow 5 photos
+  ════════════════════════════════════════════ */
+  const MULTI_PERSON_SUBFOLDERS = new Set([
+    'couple', 'family', 'friends', 'siblings', 'sibling',
+    'mom', 'dad', 'grandparents', 'grandparent', 'love',
+    'bff', 'group', 'brother', 'sister',
+  ]);
+
+  /* Returns the correct photo limit for the active product */
+  function getPhotoLimitForProduct(product) {
+    const cat = product.category;
+    const sub = (product.subfolder || '').toLowerCase();
+    if (cat === 'wordart') {
+      return WORDART_LIMITS[sub] || WORDART_LIMITS['default'];
+    }
+    // 2+ person subfolders → 5 images; everything else → 1
+    return MULTI_PERSON_SUBFOLDERS.has(sub) ? 5 : 1;
+  }
+
+  /* ════════════════════════════════════════════
+     STATE
+  ════════════════════════════════════════════ */
+  let activeProduct = null;
+  let uploadedFiles = [];
+  let maxPhotos = 1;
+  let orderCounter = parseInt(localStorage.getItem('dviplex_order_counter') || '0');
+
+  /* ════════════════════════════════════════════
+     INIT
+  ════════════════════════════════════════════ */
+  document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const idx = parseInt(params.get('productIdx'));
+
+    if (!isNaN(idx) && idx >= 0 && idx < PRODUCTS_CATALOG.length) {
+      activeProduct = PRODUCTS_CATALOG[idx];
+    } else {
+      activeProduct = PRODUCTS_CATALOG[0];
+    }
+
+    populateSummary();
+    renderDynamicFields();
+    initUpload();
+  });
+
+  /* ════════════════════════════════════════════
+     POPULATE SIDEBAR + MINI CARD
+  ════════════════════════════════════════════ */
+  function populateSummary() {
+    const p = activeProduct;
+    document.getElementById('productThumb').src = p.thumbnail;
+    document.getElementById('productThumb').alt = p.title;
+    document.getElementById('productCat').textContent = p.categoryName;
+    document.getElementById('productName').textContent = p.title;
+    document.getElementById('priceNow').textContent = `₹${p.price}`;
+    document.getElementById('priceWas').textContent = `₹${p.originalPrice}`;
+
+    document.getElementById('summaryOriginal').textContent = `₹${p.originalPrice}`;
+    document.getElementById('summaryDiscount').textContent = `−₹${p.originalPrice - p.price}`;
+    document.getElementById('summaryTotal').textContent = `₹${p.price}`;
+  }
+
+  /* ════════════════════════════════════════════
+     RENDER DYNAMIC FIELDS BASED ON CATEGORY
+  ════════════════════════════════════════════ */
+  /* Shared HTML snippets */
+  const FONT_OPTIONS = `
+    <option value="">— Select Font Style —</option>
+    <option value="Great Vibes" style="font-family:'Great Vibes'">Great Vibes</option>
+    <option value="Pinyon Script" style="font-family:'Pinyon Script'">Pinyon Script</option>
+    <option value="Tangerine" style="font-family:'Tangerine'">Tangerine</option>
+    <option value="Sacramento" style="font-family:'Sacramento'">Sacramento</option>
+    <option value="Allura" style="font-family:'Allura'">Allura</option>
+    <option value="Alex Brush" style="font-family:'Alex Brush'">Alex Brush</option>
+    <option value="Pacifico" style="font-family:'Pacifico'">Pacifico</option>
+    <option value="Caveat" style="font-family:'Caveat'">Caveat</option>
+    <option value="Dancing Script" style="font-family:'Dancing Script'">Dancing Script</option>
+    <option value="Kaushan Script" style="font-family:'Kaushan Script'">Kaushan Script</option>
+    <option value="Yellowtail" style="font-family:'Yellowtail'">Yellowtail</option>
+    <option value="Satisfy" style="font-family:'Satisfy'">Satisfy</option>`;
+
+  const SIZE_OPTIONS = `
+    <option value="">— Select Size —</option>
+    <option value="4x6">4 × 6 in</option>
+    <option value="5x7">5 × 7 in</option>
+    <option value="8x11">8 × 11 in</option>
+    <option value="11x14">11 × 14 in</option>
+    <option value="16x20">16 × 20 in</option>`;
+
+  const COLOUR_OPTIONS = `
+    <option value="">— Select Colour Theme —</option>
+    <option value="Terracotta Orange">Terracotta Orange</option>
+    <option value="Dusty Rose">Dusty Rose</option>
+    <option value="Sage Green">Sage Green</option>
+    <option value="Navy Blue">Navy Blue</option>
+    <option value="Warm Mustard">Warm Mustard</option>
+    <option value="Dusty Purple">Dusty Purple</option>
+    <option value="Slate Blue">Slate Blue</option>
+    <option value="Blush Pink">Blush Pink</option>
+    <option value="Forest Green">Forest Green</option>
+    <option value="Warm Mocha">Warm Mocha</option>`;
+
+  /* Shared trailing fields appended to every product block */
+  function trailingFields(includeSignature = true) {
+    return `
+      ${ includeSignature ? `
+      <div class="form-grid single" style="margin-top:14px;">
+        <div class="form-group">
+          <label class="form-label" for="customSignature">Custom Signature <span class="req">*</span></label>
+          <input type="text" id="customSignature" class="form-control" placeholder="e.g. From Aarav with Love, 2026" required />
+          <span class="field-error" id="err-customSignature">Please enter your custom signature.</span>
+        </div>
+      </div>` : '' }
+      <div class="form-grid single" style="margin-top:14px;">
+        <div class="form-group">
+          <label class="form-label" for="specialRequest">Special Request <span class="opt">(Optional)</span></label>
+          <textarea id="specialRequest" class="form-control" rows="3" placeholder="Any special instructions, background preferences, colour notes, etc."></textarea>
+        </div>
+      </div>`;
+  }
+
+  function renderDynamicFields() {
+    const cat = activeProduct.category;
+    const container = document.getElementById('dynamicFields');
+    let html = '';
+
+    if (cat === 'wordart') {
+      // ── WORD ART ── (no photo upload; words form the shape)
+      maxPhotos = getPhotoLimitForProduct(activeProduct);
+
+      html = `
+        <div class="form-grid single">
+          <div class="form-group">
+            <label class="form-label" for="customSentence">Custom Sentence / Collage Text <span class="req">*</span>
+              <span class="opt">(The words that form the portrait shape)</span>
+            </label>
+            <input type="text" id="customSentence" class="form-control" placeholder="e.g. MOM, LOVE, FAMILY, BABY" required />
+            <span class="field-error" id="err-customSentence">Please enter the custom sentence or collage words.</span>
+          </div>
+        </div>
+        ${trailingFields(true)}`;
+
+    } else if (cat === 'pet lineart') {
+      // ── PET LINE ART ──
+      maxPhotos = getPhotoLimitForProduct(activeProduct);
+      html = `
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="customName">Custom Name on Artwork <span class="req">*</span></label>
+            <input type="text" id="customName" class="form-control" placeholder="e.g. Bruno, Luna, Max" required />
+            <span class="field-error" id="err-customName">Please enter the name for the artwork.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="artworkSize">Artwork Size <span class="req">*</span></label>
+            <select id="artworkSize" class="form-control" required>${SIZE_OPTIONS}</select>
+            <span class="field-error" id="err-artworkSize">Please select artwork size.</span>
+          </div>
+        </div>
+        <div class="form-grid" style="margin-top:14px;">
+          <div class="form-group">
+            <label class="form-label" for="fontStyle">Font Style <span class="req">*</span></label>
+            <select id="fontStyle" class="form-control" required>${FONT_OPTIONS}</select>
+            <span class="field-error" id="err-fontStyle">Please select a font style.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="borderStyle">Border Style <span class="req">*</span></label>
+            <select id="borderStyle" class="form-control" required>
+              <option value="">— Select Border Style —</option>
+              <option value="No Border">No Border (Clean)</option>
+              <option value="Thin Line Border">Thin Line Border</option>
+              <option value="Floral Decorative Border">Floral / Decorative Border</option>
+              <option value="Paw Print Border">Paw Print Border</option>
+            </select>
+            <span class="field-error" id="err-borderStyle">Please select a border style.</span>
+          </div>
+        </div>
+        <div class="form-grid single" style="margin-top:14px;">
+          <div class="form-group">
+            <label class="form-label" for="artColour">Art Colour Theme <span class="req">*</span></label>
+            <select id="artColour" class="form-control" required>${COLOUR_OPTIONS}</select>
+            <span class="field-error" id="err-artColour">Please select a colour theme.</span>
+          </div>
+        </div>
+        ${trailingFields(false)}`;
+
+    } else if (cat === 'caricature') {
+      // ── CARICATURE ──
+      maxPhotos = getPhotoLimitForProduct(activeProduct);
+      html = `
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="customName">Custom Name on Artwork <span class="req">*</span></label>
+            <input type="text" id="customName" class="form-control" placeholder="e.g. Rahul &amp; Priya" required />
+            <span class="field-error" id="err-customName">Please enter the name for the artwork.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="artworkSize">Artwork Size <span class="req">*</span></label>
+            <select id="artworkSize" class="form-control" required>${SIZE_OPTIONS}</select>
+            <span class="field-error" id="err-artworkSize">Please select artwork size.</span>
+          </div>
+        </div>
+        <div class="form-grid" style="margin-top:14px;">
+          <div class="form-group">
+            <label class="form-label" for="fontStyle">Font Style <span class="req">*</span></label>
+            <select id="fontStyle" class="form-control" required>${FONT_OPTIONS}</select>
+            <span class="field-error" id="err-fontStyle">Please select a font style.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="bubbleText">Bubble Effect Text <span class="opt">(Optional)</span></label>
+            <input type="text" id="bubbleText" class="form-control" placeholder="e.g. Happy Birthday! · BFFs Forever" />
+          </div>
+        </div>
+        ${trailingFields(false)}`;
+
+    } else {
+      // ── WATERCOLOR SPLASH / PASTEL / LINE ART / ANIME ──
+      maxPhotos = getPhotoLimitForProduct(activeProduct);
+      html = `
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="customName">Custom Name on Artwork <span class="req">*</span></label>
+            <input type="text" id="customName" class="form-control" placeholder="e.g. Priya · Aarav &amp; Kiara" required />
+            <span class="field-error" id="err-customName">Please enter the name for the artwork.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="artworkSize">Artwork Size <span class="req">*</span></label>
+            <select id="artworkSize" class="form-control" required>${SIZE_OPTIONS}</select>
+            <span class="field-error" id="err-artworkSize">Please select artwork size.</span>
+          </div>
+        </div>
+        <div class="form-grid single" style="margin-top:14px;">
+          <div class="form-group">
+            <label class="form-label" for="fontStyle">Font Style <span class="req">*</span></label>
+            <select id="fontStyle" class="form-control" required>${FONT_OPTIONS}</select>
+            <span class="field-error" id="err-fontStyle">Please select a font style.</span>
+          </div>
+        </div>
+        ${trailingFields(false)}`;
+    }
+
+    container.innerHTML = html;
+    updateUploadLimit();
+  }
+
+  /* ════════════════════════════════════════════
+     UPLOAD LOGIC
+  ════════════════════════════════════════════ */
+  function updateUploadLimit() {
+    document.getElementById('uploadLimitBadge').textContent =
+      `Max ${maxPhotos} image${maxPhotos !== 1 ? 's' : ''}`;
+    document.getElementById('photoInput').multiple = (maxPhotos > 1);
+  }
+
+  function initUpload() {
+    const zone = document.getElementById('uploadZone');
+    const input = document.getElementById('photoInput');
+
+    zone.addEventListener('dragenter', e => { e.preventDefault(); zone.classList.add('dragover'); });
+    zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('dragover'); });
+    zone.addEventListener('dragleave', e => { zone.classList.remove('dragover'); });
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      zone.classList.remove('dragover');
+      handleFiles(e.dataTransfer.files);
+    });
+
+    input.addEventListener('change', () => {
+      handleFiles(input.files);
+      input.value = ''; // reset so same file can be re-selected after removal
+    });
+  }
+
+  function handleFiles(fileList) {
+    const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
+    const MAX_SIZE = 10 * 1024 * 1024; // 10 MB
+    const errEl = document.getElementById('err-photos');
+
+    for (const file of fileList) {
+      if (uploadedFiles.length >= maxPhotos) {
+        showFieldError('err-photos', `You can upload a maximum of ${maxPhotos} image${maxPhotos !== 1 ? 's' : ''} for this product.`);
+        break;
+      }
+      const ext = file.name.split('.').pop().toLowerCase();
+      if (!allowed.includes(file.type) && !['jpg','jpeg','png','webp','heic'].includes(ext)) {
+        showFieldError('err-photos', `"${file.name}" is not a supported format.`);
+        continue;
+      }
+      if (file.size > MAX_SIZE) {
+        showFieldError('err-photos', `"${file.name}" exceeds the 10 MB size limit.`);
+        continue;
+      }
+      uploadedFiles.push(file);
+    }
+
+    if (uploadedFiles.length <= maxPhotos) {
+      clearFieldError('err-photos');
+    }
+    renderPreviews();
+  }
+
+  function renderPreviews() {
+    const grid = document.getElementById('previewGrid');
+    grid.innerHTML = '';
+    uploadedFiles.forEach((file, idx) => {
+      const url = URL.createObjectURL(file);
+      const item = document.createElement('div');
+      item.className = 'preview-item';
+      item.innerHTML = `
+        <img src="${url}" alt="${file.name}" />
+        <button type="button" class="remove-btn" onclick="removeFile(${idx})" title="Remove">✕</button>
+        <div class="file-name">${file.name}</div>`;
+      grid.appendChild(item);
+    });
+  }
+
+  function removeFile(idx) {
+    uploadedFiles.splice(idx, 1);
+    clearFieldError('err-photos');
+    renderPreviews();
+  }
+
+  /* ════════════════════════════════════════════
+     VALIDATION HELPERS
+  ════════════════════════════════════════════ */
+  function showFieldError(id, msg) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = msg || el.textContent;
+    el.classList.add('visible');
+    const input = document.getElementById(id.replace('err-', ''));
+    if (input) input.classList.add('error');
+  }
+  function clearFieldError(id) {
+    const el = document.getElementById(id);
+    if (el) { el.classList.remove('visible'); el.textContent = ''; }
+    const input = document.getElementById(id.replace('err-', ''));
+    if (input) input.classList.remove('error');
+  }
+
+  function validateRequired(fieldId) {
+    const el = document.getElementById(fieldId);
+    if (!el) return true;
+    const val = el.value.trim();
+    if (!val) { showFieldError(`err-${fieldId}`, ''); return false; }
+    clearFieldError(`err-${fieldId}`);
+    return true;
+  }
+
+  function getVal(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  /* ════════════════════════════════════════════
+     GENERATE ORDER ID
+  ════════════════════════════════════════════ */
+  function generateOrderId() {
+    orderCounter++;
+    localStorage.setItem('dviplex_order_counter', String(orderCounter));
+    return 'ORD' + String(orderCounter).padStart(6, '0');
+  }
+
+  /* ════════════════════════════════════════════
+     FORM SUBMIT
+  ════════════════════════════════════════════ */
+  document.getElementById('orderForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!activeProduct) return;
+
+    // ── Validate contact fields ──
+    const nameOk    = validateRequired('fullName');
+    const waOk      = validateRequired('whatsapp');
+    const emailOk   = validateRequired('email');
+
+    // Basic email format check
+    const emailEl = document.getElementById('email');
+    if (emailEl && emailEl.value && !emailEl.value.includes('@')) {
+      showFieldError('err-email', 'Please enter a valid email address.');
+    }
+
+    // ── Validate dynamic fields ──
+    const cat = activeProduct.category;
+    let dynamicOk = true;
+
+    if (cat === 'wordart') {
+      dynamicOk = validateRequired('customSentence') &&
+                  validateRequired('customSignature');
+    } else if (cat === 'pet lineart') {
+      dynamicOk = validateRequired('customName') &&
+                  validateRequired('artworkSize') &&
+                  validateRequired('fontStyle')   &&
+                  validateRequired('borderStyle')  &&
+                  validateRequired('artColour');
+    } else {
+      dynamicOk = validateRequired('customName') &&
+                  validateRequired('artworkSize') &&
+                  validateRequired('fontStyle');
+    }
+
+    // ── Validate photos ──
+    if (uploadedFiles.length === 0) {
+      showFieldError('err-photos', 'Please upload at least one reference photo.');
+      dynamicOk = false;
+    }
+
+    if (!nameOk || !waOk || !emailOk || !dynamicOk) return;
+
+    // ── Build order payload ──
+    const orderId = generateOrderId();
+    const now = new Date();
+
+    const payload = {
+      orderId,
+      submissionDate:   now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+      productName:      activeProduct.title,
+      productCategory:  activeProduct.categoryName,
+      productPrice:     activeProduct.price,
+      productOriginal:  activeProduct.originalPrice,
+      customerName:     getVal('fullName'),
+      whatsapp:         getVal('whatsapp'),
+      email:            getVal('email'),
+      customName:       getVal('customName'),
+      artworkSize:      getVal('artworkSize'),
+      fontStyle:        getVal('fontStyle'),
+      bubbleText:       getVal('bubbleText'),
+      borderStyle:      getVal('borderStyle'),
+      artColour:        getVal('artColour'),
+      customSentence:   getVal('customSentence'),
+      customSignature:  getVal('customSignature'),
+      specialRequest:   getVal('specialRequest'),
+      photoCount:       uploadedFiles.length,
+      photoNames:       uploadedFiles.map(f => f.name).join(', '),
+      orderStatus:      'Pending',
+    };
+
+    console.log('📦 DviPlex Order Payload (pre-upload):', payload);
+
+    // ── Disable submit & show loading overlay ──
+    const submitBtn  = document.getElementById('submitBtn');
+    const overlay    = document.getElementById('loadingOverlay');
+    const loadingTxt = overlay.querySelector('.loading-text');
+    const progressBar  = document.getElementById('uploadProgressBar');
+    const progressFill = document.getElementById('uploadProgressFill');
+
+    submitBtn.disabled = true;
+    overlay.classList.add('active');
+    loadingTxt.textContent = 'Uploading photos…';
+    progressBar.classList.add('active');
+    progressFill.style.width = '0%';
+
+    // ── Upload images first ──
+    let photoUrls = [];
+
+    // uploadImages is injected by the ES-module script above
+    const uploadFn = window.__dviplexUploadImages;
+
+    if (!uploadFn) {
+      // Module hasn't loaded yet (extremely rare) — abort gracefully
+      overlay.classList.remove('active');
+      progressBar.classList.remove('active');
+      submitBtn.disabled = false;
+      showFieldError('err-photos', 'Upload module failed to load. Please refresh and try again.');
+      return;
+    }
+
+    try {
+      photoUrls = await uploadFn(uploadedFiles, {
+        orderId,
+        onProgress: (pct) => {
+          progressFill.style.width = `${pct}%`;
+          if (pct >= 100) {
+            loadingTxt.textContent = 'Submitting order…';
+          } else {
+            loadingTxt.textContent = `Uploading photos… ${pct}%`;
+          }
+        },
+      });
+    } catch (uploadErr) {
+      // Upload failed — stop the order, surface the error to the user
+      console.error('🔴 Image upload failed:', uploadErr);
+      overlay.classList.remove('active');
+      progressBar.classList.remove('active');
+      progressFill.style.width = '0%';
+      submitBtn.disabled = false;
+      showFieldError('err-photos', uploadErr.message || 'Photo upload failed. Please try again.');
+      return;
+    }
+
+    // ── Attach uploaded URLs to payload ──
+    payload.photoUrls  = photoUrls;
+    payload.photoCount = photoUrls.length;
+    // Keep photoNames as a readable fallback for the sheet
+    payload.photoNames = uploadedFiles.map(f => f.name).join(', ');
+
+    console.log('📦 DviPlex Order Payload (with URLs):', payload);
+    loadingTxt.textContent = 'Submitting order…';
+
+    try {
+      // ── Post to Google Sheets via Apps Script ──
+      const sheetUrl = document.getElementById('sheetUrl').value.trim();
+      if (sheetUrl) {
+        await fetch(sheetUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      }
+    } catch (err) {
+      console.warn('Sheets sync failed (non-blocking):', err);
+    }
+
+    // ── Show success ──
+    progressBar.classList.remove('active');
+    setTimeout(() => {
+      overlay.classList.remove('active');
+      document.getElementById('orderFormWrap').style.display = 'none';
+      document.getElementById('displayOrderId').textContent = orderId;
+      document.getElementById('successPage').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 800);
+  });
+
+  /* ════════════════════════════════════════════
+     SHEET CONFIG TOGGLE
+  ════════════════════════════════════════════ */
+  function toggleSheetConfig() {
+    const panel = document.getElementById('sheetConfigPanel');
+    const label = document.getElementById('configToggleLabel');
+    const visible = panel.style.display !== 'none';
+    panel.style.display = visible ? 'none' : 'block';
+    label.textContent = visible ? '▼ Show' : '▲ Hide';
+  }
+  </script>
+
+</body>
+</html>

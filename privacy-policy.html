@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | DviPlex — Custom Digital Art &amp; Portraits</title>
+  <meta name="description"
+    content="Read the DviPlex Privacy Policy to understand how we collect, use, and protect your information when you visit our digital art portfolio website.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── RESET ── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      border-bottom: 0.5px solid #e0e0e0;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #1a1a1a;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: #7F77DD;
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 18px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 101;
+    }
+
+    .nav-toggle .bar {
+      height: 3px;
+      width: 100%;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-toggle.active .bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-toggle.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-grow: 1;
+      margin-left: 48px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: #7F77DD;
+    }
+
+    .nav-ctas {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-etsy {
+      background: #F1641E;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .btn-gumroad {
+      background: #FF90E8;
+      color: #1a1a1a;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* ── HERO ── */
+    .policy-hero {
+      background: linear-gradient(135deg, #f8f7ff 0%, #fff 60%);
+      padding: 64px 48px 52px;
+      text-align: center;
+      border-bottom: 0.5px solid #ebebeb;
+    }
+
+    .policy-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #EEEDFE;
+      color: #534AB7;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 22px;
+    }
+
+    .policy-title {
+      font-size: 44px;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .policy-title span {
+      color: #7F77DD;
+    }
+
+    .policy-subtitle {
+      font-size: 16px;
+      color: #666;
+      max-width: 540px;
+      margin: 0 auto 24px;
+      line-height: 1.75;
+    }
+
+    .policy-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 0.5px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    .policy-meta strong {
+      color: #1a1a1a;
+    }
+
+    /* ── LAYOUT ── */
+    .policy-layout {
+      display: flex;
+      gap: 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 48px 90px;
+      align-items: flex-start;
+    }
+
+    /* ── SIDEBAR TOC ── */
+    .policy-toc {
+      width: 210px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 90px;
+    }
+
+    .toc-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #bbb;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      margin-bottom: 14px;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-left: 2px solid #f0f0f0;
+    }
+
+    .toc-list li a {
+      display: block;
+      padding: 6px 0 6px 14px;
+      font-size: 13px;
+      color: #999;
+      text-decoration: none;
+      line-height: 1.5;
+      transition: color 0.2s, border-color 0.2s;
+      border-left: 2px solid transparent;
+      margin-left: -2px;
+    }
+
+    .toc-list li a:hover,
+    .toc-list li a.active {
+      color: #7F77DD;
+      border-left-color: #7F77DD;
+    }
+
+    /* ── CONTENT ── */
+    .policy-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .policy-section {
+      margin-bottom: 52px;
+      scroll-margin-top: 108px;
+    }
+
+    .policy-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .s-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: #EEEDFE;
+      border-radius: 9px;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .policy-section h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 22px 0 8px;
+    }
+
+    .policy-section p {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+
+    .policy-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .policy-section ul {
+      margin: 10px 0 14px 0;
+      padding-left: 22px;
+    }
+
+    .policy-section ul li {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.8;
+      margin-bottom: 6px;
+    }
+
+    .policy-section a {
+      color: #7F77DD;
+      text-decoration: none;
+    }
+
+    .policy-section a:hover {
+      text-decoration: underline;
+    }
+
+    /* Callout boxes */
+    .box-purple {
+      background: #f8f7ff;
+      border: 1px solid #e5e2fc;
+      border-left: 4px solid #7F77DD;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 18px 0;
+    }
+
+    .box-purple p {
+      color: #534AB7 !important;
+      font-size: 14px !important;
+      margin: 0 !important;
+    }
+
+    .box-purple strong {
+      color: #1a1a1a;
+    }
+
+    .box-orange {
+      background: #fff8f4;
+      border: 1px solid #fde0cc;
+      border-left: 4px solid #F1641E;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 18px 0;
+    }
+
+    .box-orange p {
+      color: #c0541a !important;
+      font-size: 14px !important;
+      margin: 0 !important;
+    }
+
+    .box-orange strong {
+      color: #1a1a1a;
+    }
+
+    /* Service cards */
+    .service-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .service-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px;
+      border: 0.5px solid #e8e8e8;
+      border-radius: 12px;
+      background: #fafafa;
+    }
+
+    .svc-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .svc-etsy {
+      background: #fff0e8;
+      color: #c04a0e;
+    }
+
+    .svc-pinterest {
+      background: #ffeef0;
+      color: #b00020;
+    }
+
+    .svc-google {
+      background: #e8f4fe;
+      color: #1a56a0;
+    }
+
+    .svc-netlify {
+      background: #e4f8f5;
+      color: #00796b;
+    }
+
+    .service-desc {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.75;
+    }
+
+    /* Contact box */
+    .contact-box {
+      background: #1a1a1a;
+      color: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      margin-top: 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .contact-ico {
+      font-size: 34px;
+      flex-shrink: 0;
+    }
+
+    .contact-box p {
+      color: #ccc !important;
+      font-size: 14px !important;
+      margin-bottom: 12px !important;
+    }
+
+    .contact-box strong {
+      color: #fff;
+    }
+
+    .contact-email-btn {
+      display: inline-block;
+      background: #7F77DD;
+      color: #fff !important;
+      text-decoration: none;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .contact-email-btn:hover {
+      background: #6753d5;
+      color: #fff !important;
+      text-decoration: none;
+    }
+
+
+    /* ── FOOTER ── */
+    .footer-wrap {
+      background: #0f0f0f;
+      color: #ccc;
+      padding: 60px 40px 30px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .footer-logo-txt {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .footer-logo-txt span {
+      color: #7B6B9B;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.8;
+      max-width: 200px;
+    }
+
+    .footer-shop-btns {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-btn-etsy {
+      display: inline-block;
+      background: #7B6B9B;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .footer-btn-gumroad {
+      display: inline-block;
+      background: #2a2a2a;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .footer-col-title {
+      color: #fff;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .footer-style-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-style-list li {
+      margin-bottom: 10px;
+    }
+
+    .footer-style-list a {
+      color: #888;
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .footer-style-list a:hover {
+      color: #7B6B9B;
+    }
+
+    .footer-social-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #888;
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-social-link:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: #555;
+      margin: 0;
+    }
+
+    .footer-bottom a {
+      color: #7B6B9B;
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav {
+        padding: 16px 20px;
+      }
+
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        width: 100%;
+        margin-left: 0;
+        padding: 20px 0;
+        border-top: 1px solid #f0f0f0;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+      }
+
+      .nav-ctas {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 20px;
+      }
+
+      .policy-hero {
+        padding: 40px 24px 36px;
+      }
+
+      .policy-title {
+        font-size: 30px;
+      }
+
+      .policy-layout {
+        flex-direction: column;
+        padding: 32px 24px 60px;
+        gap: 24px;
+      }
+
+      .policy-toc {
+        width: 100%;
+        position: static;
+      }
+
+      .toc-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        border-left: none;
+      }
+
+      .toc-list li a {
+        border: 0.5px solid #e0e0e0;
+        border-radius: 20px;
+        padding: 5px 12px;
+        border-left: 0.5px solid #e0e0e0;
+        margin-left: 0;
+        font-size: 12px;
+      }
+
+      .toc-list li a:hover,
+      .toc-list li a.active {
+        background: #EEEDFE;
+        border-color: #7F77DD;
+      }
+
+      .contact-box {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+      }
+
+      .footer-tagline {
+        margin: 0 auto;
+      }
+
+      .footer-shop-btns {
+        justify-content: center;
+      }
+
+      .footer-social-link {
+        justify-content: center;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">Dvi<span>Plex</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <div class="nav-menu" id="navMenu">
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#products">Products</a>
+        <a href="index.html#about">About</a>
+      </div>
+      <div class="nav-ctas">
+        <a href="mailto:dviplex@gmail.com" class="btn-primary" style="padding: 8px 16px; font-size: 13px; font-weight: 600; text-decoration: none; color: #fff; background: #7F77DD; border-radius: 8px;">Contact Us</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="policy-hero">
+    <div class="policy-badge">&#x1F512; Privacy &amp; Transparency</div>
+    <h1 class="policy-title">Privacy <span>Policy</span></h1>
+    <p class="policy-subtitle">
+      We believe in full transparency. This policy explains what information DviPlex collects,
+      how we use it, and your rights as a visitor.
+    </p>
+    <div class="policy-meta">
+      &#x1F5D3; <strong>Last Updated:</strong>&nbsp;June 26, 2026
+    </div>
+  </header>
+
+  <!-- ── MAIN LAYOUT ── -->
+  <div class="policy-layout">
+
+    <!-- Sidebar Table of Contents -->
+    <aside class="policy-toc" aria-label="Table of contents">
+      <p class="toc-label">Contents</p>
+      <ul class="toc-list" id="tocList">
+        <li><a href="#introduction">1. Introduction</a></li>
+        <li><a href="#information-we-collect">2. Information We Collect</a></li>
+        <li><a href="#how-we-use">3. How We Use Information</a></li>
+        <li><a href="#etsy-purchases">4. Order Inquiries</a></li>
+        <li><a href="#third-party">5. Third-Party Services</a></li>
+        <li><a href="#cookies">6. Cookies</a></li>
+        <li><a href="#data-security">7. Data Security</a></li>
+        <li><a href="#external-links">8. External Links</a></li>
+        <li><a href="#childrens-privacy">9. Children's Privacy</a></li>
+        <li><a href="#changes">10. Policy Changes</a></li>
+        <li><a href="#contact">11. Contact Us</a></li>
+      </ul>
+    </aside>
+
+    <!-- Policy Content -->
+    <main class="policy-content">
+
+      <!-- 1. Introduction -->
+      <section class="policy-section" id="introduction">
+        <h2><span class="s-icon">&#x1F44B;</span> 1. Introduction</h2>
+        <p>
+          Welcome to <strong>DviPlex</strong> ("we," "us," or "our"). DviPlex is a portfolio and showcase
+          website for personalized digital artwork. We display our products online, and customers are
+          directed to external platforms to complete purchases.
+        </p>
+        <p>
+          This Privacy Policy explains how we handle information collected when you visit our website.
+          By using DviPlex, you agree to the practices described in this policy. If you disagree,
+          please discontinue use of the website.
+        </p>
+        <p>
+          We are committed to protecting your privacy in accordance with applicable laws, including
+          the General Data Protection Regulation (GDPR) where relevant.
+        </p>
+      </section>
+
+      <!-- 2. Information We Collect -->
+      <section class="policy-section" id="information-we-collect">
+        <h2><span class="s-icon">&#x1F4CB;</span> 2. Information We Collect</h2>
+        <p>
+          DviPlex is primarily a display website. We collect only the minimum information necessary
+          to operate and improve the site.
+        </p>
+
+        <h3>2.1 Basic Website Usage Data</h3>
+        <p>
+          When you visit DviPlex, our hosting provider (Netlify) and analytics tools may automatically
+          collect basic technical information, including:
+        </p>
+        <ul>
+          <li>Browser type and version</li>
+          <li>Device type and operating system</li>
+          <li>Pages visited and time spent on each page</li>
+          <li>Referring website or URL</li>
+          <li>Approximate geographic location (country or region level)</li>
+          <li>IP address (processed by third-party services, not stored by DviPlex)</li>
+        </ul>
+        <p>
+          This information is used solely for analytics and website improvement. It is not used
+          to personally identify you.
+        </p>
+
+        <h3>2.2 Contact Enquiries</h3>
+        <p>
+          If you contact us via email at
+          <a href="mailto:support@dviplex.com">support@dviplex.com</a>,
+          we may collect your name and email address solely to respond to your enquiry.
+          We do not retain this information in any database beyond the scope of your conversation.
+        </p>
+
+        <h3>2.3 Cookies and Analytics Data</h3>
+        <p>
+          DviPlex may use cookies and similar tracking technologies to understand how visitors
+          interact with the site. Please see
+          <a href="#cookies">Section 6 &#x2013; Cookies</a> for full details.
+        </p>
+      </section>
+
+      <!-- 3. How We Use Information -->
+      <section class="policy-section" id="how-we-use">
+        <h2><span class="s-icon">&#x2699;&#xFE0F;</span> 3. How We Use Information</h2>
+        <p>We use collected information for the following purposes:</p>
+        <ul>
+          <li><strong>Website operation:</strong> To ensure the website functions correctly across devices and browsers.
+          </li>
+          <li><strong>Analytics:</strong> To understand visitor behaviour, measure traffic, and improve content and
+            layout.</li>
+          <li><strong>Communication:</strong> To respond to direct enquiries or messages you send us.</li>
+          <li><strong>Security:</strong> To detect and prevent fraudulent or malicious activity.</li>
+          <li><strong>Legal compliance:</strong> To meet any applicable legal obligations.</li>
+        </ul>
+        <p>
+          We do <strong>not</strong> sell, rent, trade, or share your personal information with
+          third parties for their own marketing purposes.
+        </p>
+      </section>
+
+      <!-- 4. Custom Orders, Payment, and Digital Product Terms -->
+      <section class="policy-section" id="custom-orders">
+        <h2><span class="s-icon">📝</span> 4. Custom Orders, Payment, and Digital Product Terms</h2>
+        <div class="box-orange" style="border-left: 4px solid #7F77DD; background: rgba(127, 119, 221, 0.05); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+          <p>
+            <strong>Important Digital Delivery Policy:</strong> All items sold on DviPlex are 100% digital products. 
+            No physical posters, canvases, frames, or prints will be shipped. Handcrafted digital artwork is delivered 
+            directly to your email address within 5 hours of order confirmation and image upload.
+          </p>
+        </div>
+        <p>
+          When you place an order on our <strong>Order Page</strong>, we collect your name, phone number, email address, custom text requirements, and reference photo files. 
+          This information is processed solely to design, customize, and deliver your personalized portrait.
+        </p>
+        
+        <h3>4.1 Payment Gateway (Razorpay)</h3>
+        <p>
+          Payments are securely processed via Razorpay. We do not store or process card numbers, banking details, or UPI credentials on our servers. Razorpay processes all transactions securely under strict PCI-DSS compliance guidelines.
+        </p>
+
+        <h3>4.2 Strict No-Return / No-Refund Policy</h3>
+        <p>
+          Due to the fully customized, handcrafted, and digital nature of personalized digital artwork:
+        </p>
+        <ul>
+          <li><strong>No Refunds:</strong> All payments are final once the transaction is completed and artwork creation begins.</li>
+          <li><strong>No Cancellations:</strong> Orders cannot be canceled or modified once your reference photos have been processed.</li>
+          <li><strong>No Returns:</strong> Digital file downloads cannot be returned or swapped.</li>
+          <li><strong>Free Revisions:</strong> We want you to love your art. We provide free design adjustments and revisions within 24 hours of delivery.</li>
+        </ul>
+      </section>
+
+      <!-- 5. Third-Party Services -->
+      <section class="policy-section" id="third-party">
+        <h2><span class="s-icon">&#x1F517;</span> 5. Third-Party Services</h2>
+        <p>
+          DviPlex integrates with or links to the following third-party services. Each operates
+          under its own privacy policy, which governs any data they collect independently.
+        </p>
+
+        <div class="service-list">
+
+          <div class="service-item">
+            <span class="svc-badge svc-pinterest">Pinterest</span>
+            <div class="service-desc">
+              We may link to our Pinterest profile or feature content from Pinterest. If you interact
+              with embedded pins or visit our Pinterest page, Pinterest may collect data per their
+              <a href="https://policy.pinterest.com/en/privacy-policy" target="_blank" rel="noopener">Privacy
+                Policy</a>.
+              DviPlex does not control Pinterest's data collection.
+            </div>
+          </div>
+
+          <div class="service-item">
+            <span class="svc-badge svc-google">Google Analytics</span>
+            <div class="service-desc">
+              We may use Google Analytics to collect anonymised usage statistics such as page views,
+              session duration, and traffic sources. Google Analytics may use cookies for this purpose.
+              You can opt out via the
+              <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out
+                Browser Add-on</a>.
+              See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy
+                Policy</a>.
+            </div>
+          </div>
+
+          <div class="service-item">
+            <span class="svc-badge svc-netlify">Netlify</span>
+            <div class="service-desc">
+              DviPlex is hosted on Netlify, which may collect server logs including IP addresses
+              and access times for security and performance purposes. Review
+              <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">Netlify's Privacy Policy</a>
+              for full details.
+            </div>
+          </div>
+
+        </div>
+
+        <p style="margin-top:18px;">
+          We encourage you to review the privacy policies of any third-party services you interact
+          with through or in connection with DviPlex.
+        </p>
+      </section>
+
+      <!-- 6. Cookies -->
+      <section class="policy-section" id="cookies">
+        <h2><span class="s-icon">&#x1F36A;</span> 6. Cookies</h2>
+        <p>
+          Cookies are small text files stored on your device by your browser. DviPlex may use
+          the following types of cookies:
+        </p>
+        <ul>
+          <li><strong>Essential cookies:</strong> Required for the website to function correctly. These cannot be
+            disabled.</li>
+          <li><strong>Analytics cookies:</strong> Used by tools such as Google Analytics to collect anonymised usage
+            data. These help us understand how visitors use our site.</li>
+          <li><strong>Third-party cookies:</strong> Set by embedded services such as Pinterest or Etsy widgets, where
+            applicable.</li>
+        </ul>
+        <div class="box-purple">
+          <p>
+            <strong>Your choice:</strong> Most browsers allow you to refuse or delete cookies via
+            their settings. You can also opt out of Google Analytics cookies using the
+            <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out
+              Add-on</a>.
+            Note that disabling certain cookies may affect some website functionality.
+          </p>
+        </div>
+        <p>
+          If you are located in the European Economic Area (EEA) or United Kingdom, you have the
+          right to withdraw consent for non-essential cookies at any time.
+        </p>
+      </section>
+
+      <!-- 7. Data Security -->
+      <section class="policy-section" id="data-security">
+        <h2><span class="s-icon">&#x1F6E1;&#xFE0F;</span> 7. Data Security</h2>
+        <p>
+          We take reasonable technical and organisational measures to protect any data associated
+          with the operation of DviPlex. Our website is hosted on Netlify, which employs
+          industry-standard security protocols including HTTPS encryption for all traffic.
+        </p>
+        <p>
+          However, no method of transmission over the internet or electronic storage is completely
+          secure. We cannot guarantee the absolute security of information transmitted to or from
+          our website.
+        </p>
+        <p>
+          Because DviPlex does not store payment information or maintain personal customer accounts,
+          the risk of sensitive data exposure on our platform is minimal by design.
+        </p>
+      </section>
+
+      <!-- 8. External Links -->
+      <section class="policy-section" id="external-links">
+        <h2><span class="s-icon">&#x1F310;</span> 8. External Links</h2>
+        <p>
+          DviPlex contains links to external websites, including Etsy, Pinterest, Instagram, TikTok,
+          Facebook, and Gumroad. These links are provided for your convenience and do not signify
+          endorsement of those websites or their content.
+        </p>
+        <p>
+          We have no control over the content or privacy practices of external sites. We encourage
+          you to review the privacy policy of any external website you visit before providing
+          personal information.
+        </p>
+      </section>
+
+      <!-- 9. Children's Privacy -->
+      <section class="policy-section" id="childrens-privacy">
+        <h2><span class="s-icon">&#x1F9D2;</span> 9. Children's Privacy</h2>
+        <p>
+          DviPlex is not directed at children under the age of 13. We do not knowingly collect
+          personal information from children. If you believe a child under 13 has provided us
+          with personal information, please contact us at
+          <a href="mailto:support@dviplex.com">support@dviplex.com</a>
+          and we will promptly delete such information.
+        </p>
+      </section>
+
+      <!-- 10. Policy Changes -->
+      <section class="policy-section" id="changes">
+        <h2><span class="s-icon">&#x1F4DD;</span> 10. Changes to This Privacy Policy</h2>
+        <p>
+          We may update this Privacy Policy from time to time to reflect changes in our practices,
+          technology, legal requirements, or other factors. When we make changes, we will update
+          the <strong>"Last Updated"</strong> date at the top of this page.
+        </p>
+        <p>
+          We encourage you to review this Privacy Policy periodically. Continued use of DviPlex
+          after any changes constitutes your acceptance of the updated policy.
+        </p>
+      </section>
+
+      <!-- 11. Contact -->
+      <section class="policy-section" id="contact">
+        <h2><span class="s-icon">&#x2709;&#xFE0F;</span> 11. Contact Information</h2>
+        <p>
+          If you have any questions, concerns, or requests regarding this Privacy Policy or
+          how your information is handled, please reach out to us directly.
+        </p>
+        <div class="contact-box">
+          <div class="contact-ico">&#x1F4E7;</div>
+          <div>
+            <p>
+              We aim to respond to all enquiries within <strong>48 hours</strong>.
+            </p>
+            <a href="mailto:dviplex@gmail.com" class="contact-email-btn" id="contact-email-link">dviplex@gmail.com</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer-wrap">
+    <div class="footer-grid">
+
+      <!-- Brand Column -->
+      <div>
+        <div class="footer-logo-txt">Dvi<span>Plex</span></div>
+        <p class="footer-tagline">Premium personalized digital portraits crafted with care.</p>
+        <div class="footer-shop-btns">
+          <a href="mailto:dviplex@gmail.com" class="footer-btn-etsy" style="background: #7B6B9B;">Contact Us</a>
+        </div>
+      </div>
+
+      <!-- Legal Column -->
+      <div>
+        <h4 class="footer-col-title">Legal</h4>
+        <ul class="footer-style-list">
+          <li><a href="privacy-policy.html">&#x2756; Privacy Policy</a></li>
+          <li><a href="index.html">&#x2756; Back to Home</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Column -->
+      <div>
+        <h4 class="footer-col-title">Connect With Us</h4>
+        <a href="mailto:dviplex@gmail.com" class="footer-social-link">&#x1F4E7; support@dviplex.com</a>
+        <a href="https://www.instagram.com/dvi_plex" target="_blank" rel="noopener" class="footer-social-link">&#x1F4F8;
+          Instagram &#x2014; dvi_plex</a>
+        <a href="https://www.facebook.com/profile.php?id=61590622757412" target="_blank" rel="noopener"
+          class="footer-social-link">&#x1F44D; Facebook &#x2014; DviPlex</a>
+        <a href="https://tiktok.com/@dviplex4" target="_blank" rel="noopener" class="footer-social-link">&#x1F3B5;
+          TikTok &#x2014; @dviplex4</a>
+        <a href="https://www.pinterest.com/dviplex_01" target="_blank" rel="noopener"
+          class="footer-social-link">&#x1F4CC; Pinterest &#x2014; dviplex_01</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 DviPlex &middot; All Rights Reserved</p>
+      <p><a href="privacy-policy.html">Privacy Policy</a> &middot; <a href="index.html">Home</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!navMenu.contains(event.target) && !navToggle.contains(event.target)) {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('active');
+        }
+      });
+    }
+
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc-list a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Active TOC highlight on scroll
+    const sections = document.querySelectorAll('.policy-section');
+    const tocLinks = document.querySelectorAll('.toc-list a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+
+</html>

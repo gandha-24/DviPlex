@@ -1,0 +1,2105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DviPlex | Premium Custom Digital Art & Portraits</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #fff;
+    color: #1a1a1a;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 48px;
+    border-bottom: 0.5px solid #e0e0e0;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+    margin-left: 48px;
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101;
+  }
+
+  .nav-toggle .bar {
+    height: 3px;
+    width: 100%;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-toggle.active .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .nav-logo {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #1a1a1a;
+  }
+
+  .nav-logo span {
+    color: #7F77DD;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .nav-links a:hover {
+    color: #7F77DD;
+  }
+
+  .nav-badge {
+    background: #7F77DD;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-ctas {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .btn-etsy {
+    background: #F1641E;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .btn-gumroad {
+    background: #FF90E8;
+    color: #1a1a1a;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #f8f7ff 0%, #fff 60%);
+    padding: 80px 48px 60px;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+  }
+
+  .hero-text {
+    flex: 1;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #EEEDFE;
+    color: #534AB7;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  .hero-title span {
+    color: #7F77DD;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 480px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 26px;
+    font-weight: 700;
+    color: #534AB7;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: #888;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: #7F77DD;
+    color: #fff;
+    border: none;
+    padding: 13px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-secondary {
+    background: #fff;
+    color: #7F77DD;
+    border: 2px solid #7F77DD;
+    padding: 11px 24px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .hero-imgs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 340px;
+    flex-shrink: 0;
+  }
+
+  .hero-img-card {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 0.5px solid #e8e8e8;
+    aspect-ratio: 4/5;
+  }
+
+  .hero-img-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .trust-bar {
+    background: #1a1a1a;
+    padding: 14px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ccc;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .trust-item i {
+    color: #7F77DD;
+    font-size: 18px;
+  }
+
+  .section {
+    padding: 64px 48px;
+  }
+
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .section-sub {
+    font-size: 15px;
+    color: #777;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .product-card {
+    background: #fff;
+    border: 0.5px solid #e8e8e8;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
+    box-shadow: 0 4px 20px rgba(127, 119, 221, 0.15);
+  }
+
+  .product-img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+  }
+
+  .product-info {
+    padding: 12px 14px;
+  }
+
+  .product-tag {
+    font-size: 11px;
+    font-weight: 600;
+    background: #EEEDFE;
+    color: #534AB7;
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  .product-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .product-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #534AB7;
+    margin-bottom: 10px;
+  }
+
+  .product-features {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .product-btn {
+    width: 100%;
+    background: #7F77DD;
+    color: #fff;
+    border: none;
+    padding: 9px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .style-section {
+    margin-bottom: 64px;
+  }
+
+  .style-section .section-title {
+    text-align: left;
+  }
+
+  /* Image strip below product thumb */
+  .product-thumbs {
+    display: flex;
+    gap: 5px;
+    padding: 8px 10px 0;
+    overflow: hidden;
+  }
+
+  .product-thumbs img {
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .product-thumbs img:hover {
+    border-color: #7F77DD;
+  }
+
+  .product-count-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f0eff9;
+    color: #534AB7;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 5px;
+    margin-left: 6px;
+  }
+
+  /* Gallery Modal */
+  .gallery-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.82);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+    padding: 16px;
+  }
+
+  .gallery-modal-overlay.active {
+    display: flex;
+  }
+
+  .gallery-modal {
+    background: #fff;
+    border-radius: 20px;
+    max-width: 820px;
+    width: 100%;
+    max-height: 94vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .gallery-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    flex-shrink: 0;
+  }
+
+  .gallery-modal-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+  }
+
+  .gallery-modal-close {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .gallery-main {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+  }
+
+  .gallery-main-img {
+    max-width: 100%;
+    max-height: 55vh;
+    object-fit: contain;
+    display: block;
+  }
+
+  .gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.9);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: background 0.2s;
+    z-index: 2;
+  }
+
+  .gallery-nav:hover {
+    background: #fff;
+  }
+
+  .gallery-nav-prev { left: 12px; }
+  .gallery-nav-next { right: 12px; }
+
+  .gallery-counter {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    padding: 6px 0 0;
+    flex-shrink: 0;
+  }
+
+  .gallery-thumbs-strip {
+    display: flex;
+    gap: 8px;
+    padding: 10px 16px 14px;
+    overflow-x: auto;
+    flex-shrink: 0;
+    scrollbar-width: thin;
+  }
+
+  .gallery-thumbs-strip img {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2.5px solid transparent;
+    flex-shrink: 0;
+    transition: border-color 0.15s;
+  }
+
+  .gallery-thumbs-strip img.active {
+    border-color: #7F77DD;
+  }
+
+  .gallery-modal-footer {
+    padding: 12px 20px 16px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: flex-end;
+    flex-shrink: 0;
+  }
+
+  .gallery-order-btn {
+    background: #7F77DD;
+    color: #fff;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 200;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .modal-content {
+    background: #fff;
+    border-radius: 18px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 0, 0, 0.65);
+    border: none;
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .modal-header {
+    padding: 18px 20px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+  }
+
+  .modal-image {
+    width: 100%;
+    height: auto;
+    max-height: 62vh;
+    object-fit: contain;
+    background: #f8f8f8;
+  }
+
+  .modal-footer {
+    padding: 16px 20px 20px;
+    display: flex;
+    justify-content: flex-end;
+    background: #fff;
+  }
+
+  .modal-order-btn {
+    background: #7F77DD;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .gift-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 22px;
+  }
+
+  .gift-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #7F77DD;
+    color: #fff;
+    text-decoration: none;
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform .2s, background .2s;
+  }
+
+  .gift-link:hover {
+    background: #6753d5;
+    transform: translateY(-1px);
+  }
+
+  .customize-section {
+    background: #f8f7ff;
+    border-radius: 20px;
+    padding: 48px;
+    margin: 0 48px;
+    display: flex;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .customize-text {
+    flex: 1;
+  }
+
+  .customize-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+
+  .customize-desc {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .customize-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .cf {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #444;
+  }
+
+  .cf i {
+    color: #7F77DD;
+    font-size: 18px;
+  }
+
+  .customize-imgs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    max-width: 560px;
+    flex-shrink: 0;
+  }
+
+  .customize-imgs img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+
+  .designer-section{
+    display:flex;
+    align-items:center;
+    gap:40px;
+    max-width:1100px;
+    margin:0 auto;
+    padding:70px 20px;
+}
+
+.designer-avatar{
+    width:180px;
+    height:180px;
+    flex-shrink:0;
+    border-radius:50%;
+    overflow:hidden;
+    border:6px solid #fff;
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
+}
+
+.designer-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+}
+
+.designer-info{
+    flex:1;
+}
+
+.designer-bio{
+    max-width:700px;
+    line-height:1.8;
+}
+
+  .designer-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 2px;
+  }
+
+  .designer-role {
+    font-size: 13px;
+    color: #7F77DD;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .designer-platforms {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .new-badge {
+    background: #FFF3CD;
+    color: #856404;
+    border: 0.5px solid #FFE69C;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .reviews-section {
+    background: #fafafa;
+    padding: 64px 48px;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .review-card {
+    background: #fff;
+    border: 0.5px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .review-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #EEEDFE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #534AB7;
+    flex-shrink: 0;
+  }
+
+  .review-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .review-stars {
+    color: #F5A623;
+    font-size: 12px;
+  }
+
+  .review-text {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .review-product {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 6px;
+  }
+
+  .platforms-section {
+    padding: 64px 48px;
+    text-align: center;
+  }
+
+  .platforms-cards {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  .platform-card {
+    background: #fff;
+    border: 0.5px solid #e8e8e8;
+    border-radius: 16px;
+    padding: 32px 40px;
+    width: 280px;
+    text-align: left;
+  }
+
+  .platform-logo {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .platform-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .platform-desc {
+    font-size: 13px;
+    color: #777;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .platform-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #1a1a1a;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* FOOTER */
+  .footer-wrap {
+    background: #0f0f0f;
+    color: #ccc;
+    padding: 60px 40px 30px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #2a2a2a;
+  }
+
+  .footer-logo-txt {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .footer-logo-txt span {
+    color: #7B6B9B;
+  }
+
+  .footer-tagline {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.8;
+    max-width: 200px;
+  }
+
+  .footer-shop-btns {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .footer-btn-etsy {
+    display: inline-block;
+    background: #7B6B9B;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  .footer-btn-gumroad {
+    display: inline-block;
+    background: #2a2a2a;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  .footer-col-title {
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .footer-style-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-style-list li {
+    margin-bottom: 10px;
+  }
+
+  .footer-style-list a {
+    color: #888;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+
+  .footer-style-list a:hover {
+    color: #7B6B9B;
+  }
+
+  .footer-social-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #888;
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 14px;
+    transition: color 0.2s;
+  }
+
+  .footer-social-link:hover {
+    color: #fff;
+  }
+
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .footer-bottom p {
+    font-size: 12px;
+    color: #555;
+    margin: 0;
+  }
+
+  /* Offers Section Styling */
+  .offers-banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 0 auto 48px;
+    max-width: 1000px;
+    padding: 0 16px;
+  }
+
+  .offer-card {
+    background: linear-gradient(135deg, rgba(127, 119, 221, 0.04) 0%, rgba(255, 144, 232, 0.04) 100%);
+    border: 1.5px dashed #7F77DD;
+    border-radius: 18px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .offer-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: 0.6s;
+  }
+
+  .offer-card:hover::before {
+    left: 100%;
+  }
+
+  .offer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(127, 119, 221, 0.12);
+    border-style: solid;
+    background: linear-gradient(135deg, rgba(127, 119, 221, 0.07) 0%, rgba(255, 144, 232, 0.07) 100%);
+  }
+
+  .offer-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: linear-gradient(135deg, #7F77DD, #FF90E8);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    box-shadow: 0 2px 8px rgba(127, 119, 221, 0.25);
+  }
+
+  .offer-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .offer-desc {
+    font-size: 13.5px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .offer-details {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    border: 0.5px solid rgba(127, 119, 221, 0.2);
+  }
+
+  .offer-detail-item {
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .offer-detail-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .offer-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .offer-btn {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .offer-btn-etsy {
+    background: #F1641E;
+    color: #fff;
+  }
+
+  .offer-btn-etsy:hover {
+    background: #d94f14;
+    transform: translateY(-1px);
+  }
+
+  .offer-btn-gumroad {
+    background: #FF90E8;
+    color: #1a1a1a;
+  }
+
+  .offer-btn-gumroad:hover {
+    background: #e57cd0;
+    transform: translateY(-1px);
+  }
+
+  .offer-btn-combo {
+    background: #7F77DD;
+    color: #fff;
+  }
+
+  .offer-btn-combo:hover {
+    background: #6753d5;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 1024px) {
+    .nav {
+      padding: 16px 24px;
+    }
+    
+    .nav-menu {
+      margin-left: 24px;
+    }
+
+    .hero {
+      padding: 60px 24px 40px;
+      gap: 32px;
+    }
+
+    .hero-title {
+      font-size: 42px;
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .customize-section {
+      padding: 36px;
+      margin: 0 24px;
+      gap: 28px;
+    }
+
+    .customize-imgs {
+      max-width: 380px;
+    }
+
+    .designer-section {
+      padding: 48px 24px;
+      gap: 24px;
+    }
+
+    .reviews-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav {
+      padding: 12px 20px;
+    }
+
+    .nav-toggle {
+      display: flex;
+    }
+
+    .nav-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: #ffffff;
+      border-bottom: 1.5px solid #e0e0e0;
+      padding: 24px 20px 32px;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(127, 119, 221, 0.08);
+      margin-left: 0;
+      z-index: 99;
+    }
+
+    .nav-menu.active {
+      display: flex;
+    }
+
+    .nav-links {
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .nav-links a {
+      font-size: 15px;
+      padding: 6px 0;
+      display: block;
+    }
+
+    .nav-ctas {
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 20px;
+    }
+
+    .nav-ctas a {
+      width: 100%;
+      max-width: 280px;
+      text-align: center;
+      padding: 10px 16px;
+    }
+
+    .hero {
+      flex-direction: column;
+      padding: 40px 20px;
+      text-align: center;
+      gap: 36px;
+    }
+
+    .hero-title {
+      font-size: 32px;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      margin: 0 auto 24px;
+    }
+
+    .hero-stats {
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .hero-btns {
+      justify-content: center;
+    }
+
+    .hero-imgs {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      max-width: 100%;
+    }
+
+    .trust-bar {
+      padding: 12px 20px;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .trust-item {
+      font-size: 12px;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .customize-section {
+      flex-direction: column;
+      margin: 0;
+      padding: 32px 20px;
+      gap: 32px;
+    }
+
+    .customize-imgs {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      max-width: 100%;
+    }
+
+    .customize-features {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    section[style*="background: #1a1a1a"] {
+      padding: 40px 20px !important;
+    }
+
+    .designer-section {
+      flex-direction: column;
+      padding: 40px 20px;
+      text-align: center;
+      gap: 24px;
+    }
+
+    .designer-avatar {
+      margin: 0 auto;
+    }
+
+    .designer-platforms {
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .reviews-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .platforms-cards {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .platform-card {
+      width: 100%;
+      max-width: 320px;
+      padding: 24px;
+    }
+
+    .section {
+      padding: 40px 20px;
+    }
+
+    .footer-wrap {
+      padding: 40px 20px 20px;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      text-align: center;
+    }
+
+    .footer-tagline {
+      margin: 0 auto;
+    }
+
+    .footer-shop-btns {
+      justify-content: center;
+    }
+
+    .footer-social-link {
+      justify-content: center;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+      gap: 8px;
+    }
+
+    .offers-banner {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+      padding: 0;
+    }
+
+    .offer-card {
+      padding: 20px;
+    }
+
+    .offer-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .offer-btn {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">Dvi<span>Plex</span></div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <div class="nav-menu" id="navMenu">
+    <div class="nav-links">
+      <a onclick="closeMobileMenu(); document.getElementById('products').scrollIntoView({behavior:'smooth'})">Products</a>
+      <a onclick="closeMobileMenu(); document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</a>
+      <span class="nav-badge">✨ Dynamic Gallery</span>
+    </div>
+    <div class="nav-ctas">
+      <a href="mailto:dviplex@gmail.com" class="btn-primary" style="padding: 8px 16px; font-size: 13px; font-weight: 600;">Contact Us</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">Custom Portraits · Digital Gifts · Personalized Art</div>
+    <h1 class="hero-title">Beautifully Crafted<br><span>Digital Art</span> & Portraits</h1>
+    <p class="hero-sub">Custom pet portraits, couple watercolors, personalized gifts, and custom portrait art — all
+      delivered in stunning high resolution, ready to print or share.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">Custom</div>
+        <div class="stat-label">Portraits</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5 Hrs</div>
+        <div class="stat-label">Fast Delivery</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">300+</div>
+        <div class="stat-label">Unique Designs</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="mailto:dviplex@gmail.com?subject=Inquiry%20for%20Custom%20Portrait" class="btn-primary">Order Custom Portrait →</a>
+      <a onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})" class="btn-secondary">Browse Styles</a>
+    </div>
+  </div>
+  <div class="hero-imgs">
+    <div class="hero-img-card"><img src="Images/WP Single.png" alt="Watercolor Pastel Portrait"></div>
+    <div class="hero-img-card"><img src="Images/WS Single.png" alt="Watercolor Splash Portrait"></div>
+    <div class="hero-img-card"><img src="Images/LA Single.png" alt="Line Art Portrait"></div>
+    <div class="hero-img-card"><img src="Images/C Single.png" alt="Caricature Portrait"></div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item">🖼️ High-Resolution 300 DPI Files</div>
+  <div class="trust-item">🎨 Fully Personalised</div>
+  <div class="trust-item">🕐 Delivered Within 5 Hours</div>
+  <div class="trust-item">🔒 Secure Checkout</div>
+</div>
+
+<section class="section" id="products">
+  <h2 class="section-title">Portrait Styles Gallery</h2>
+  <p class="section-sub">Browse our portfolio across all styles. Every design is fully personalised just for you.</p>
+
+
+
+  <div id="gallery-container"></div>
+</section>
+
+<!-- GALLERY LIGHTBOX MODAL -->
+<div class="gallery-modal-overlay" id="galleryModal">
+  <div class="gallery-modal">
+    <div class="gallery-modal-header">
+      <h3 class="gallery-modal-title" id="galleryModalTitle">Custom Portrait Preview</h3>
+      <button class="gallery-modal-close" id="galleryModalClose">✕</button>
+    </div>
+    <div class="gallery-main">
+      <button class="gallery-nav gallery-nav-prev" id="galleryPrev">‹</button>
+      <div id="galleryMainContent" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px;">
+        <!-- Loaded via JavaScript dynamically -->
+      </div>
+      <button class="gallery-nav gallery-nav-next" id="galleryNext">›</button>
+    </div>
+    <p id="galleryModalDescription" style="padding: 12px 20px 0; margin: 0; font-size: 13.5px; color: #555; line-height: 1.6; text-align: left;"></p>
+    <div class="gallery-counter" id="galleryCounter" style="margin-top: 6px;">1 / 1</div>
+    <div class="gallery-thumbs-strip" id="galleryThumbsStrip">
+      <!-- Thumbnails loaded dynamically -->
+    </div>
+    <div class="gallery-modal-footer" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 16px 20px;">
+      <div id="galleryModalDetails" style="text-align: left;"></div>
+      <a class="gallery-order-btn" id="galleryOrderBtn" href="order.html" style="font-weight: 700; text-decoration: none;">Order Now →</a>
+    </div>
+  </div>
+</div>
+
+
+
+<section id="customize" style="padding: 0 0 64px;">
+  <div class="customize-section">
+    <div class="customize-text">
+      <div class="hero-badge" style="margin-bottom:16px;">🎨 Fully Personalized</div>
+      <h2 class="customize-title">Every Design is Made Just for You</h2>
+      <p class="customize-desc">Send us your photos, choose your size, pick your style — we'll craft a one-of-a-kind
+        digital artwork tailored to your vision. All files are delivered in high resolution (300 DPI), ready to print at
+        any size.</p>
+      <div class="customize-features">
+        <div class="cf">📤 Upload your own photos</div>
+        <div class="cf">📐 Any size you need</div>
+        <div class="cf">✏️ Custom names and text</div>
+        <div class="cf">🖼️ PNG, PDF, JPEG delivery</div>
+        <div class="cf">🖨️ Print-ready 300 DPI</div>
+        <div class="cf">🕐 Fast 5 hour turnaround</div>
+      </div>
+      <a href="mailto:dviplex@gmail.com?subject=Custom%20Design%20Inquiry" class="btn-primary">Order a Custom Design</a>
+    </div>
+    <div class="customize-imgs">
+      <img src="Products/Pet Line Art/LP Cat/1.png" alt="Custom Pet Portrait">
+      <img src="Images/WS Couple.png" alt="Custom Couple Portrait">
+      <img src="Images/W Mom.png" alt="Mom Photo Collage">
+      <img src="Images/LA Pet.png" alt="Pet Line Art Portrait">
+    </div>
+  </div>
+</section>
+
+<section id="about" class="designer-section" style="max-width: 800px; margin: 0 auto; padding: 60px 20px; text-align: center; display: block;">
+  <div class="designer-info">
+    <div class="designer-name" style="font-size: 28px; margin-bottom: 6px;">Our Creative Team</div>
+    <div class="designer-role" style="font-size: 14px; margin-bottom: 20px;">DviPlex Digital Art Studio</div>
+    <p class="designer-bio" style="max-width: 680px; margin: 0 auto 24px; line-height: 1.8; font-size: 15px; color: #555;">
+      Welcome to DviPlex! We are a passionate team of digital artists, designers, and illustrators dedicated to turning your cherished photos and memories into beautiful, personalized digital artwork. With over 5 years of experience, we specialize in a wide range of custom portrait styles, personalized gifts, and custom digital illustrations. Every project is handcrafted with meticulous attention to detail to ensure your unique vision is brought to life. We deliver high-resolution, print-ready files directly to you, making premium personalized gifting easy and accessible.
+    </p>
+    <div class="designer-platforms" style="justify-content: center; gap: 12px;">
+      <span style="background: #EEEDFE; color: #534AB7; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">🎨 Expert Illustrators</span>
+      <span style="background: #E1F5EE; color: #0F6E56; border: 0.5px solid #9FE1CB; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">✅ 5+ Years Experience</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<!-- FOOTER WITH CATCHY CTA BANNER -->
+<footer class="footer-wrap" style="background: radial-gradient(circle at 50% 0%, #151326 0%, #08080d 100%); border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 80px 40px 40px; font-family: 'Inter', sans-serif;">
+  
+  <!-- Catchy CTA Banner -->
+  <div style="background: linear-gradient(135deg, rgba(127,119,221,0.12) 0%, rgba(255,144,232,0.12) 100%); border: 1px solid rgba(127,119,221,0.22); border-radius: 24px; padding: 40px 48px; margin: 0 auto 60px; max-width: 1100px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; backdrop-filter: blur(12px); box-shadow: 0 12px 40px rgba(0,0,0,0.25);">
+    <div style="flex: 1; min-width: 280px;">
+      <h3 style="color: #fff; font-size: 24px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.5px;">Ready to create your custom portrait?</h3>
+      <p style="color: #a5a2c4; font-size: 14px; margin: 0; line-height: 1.6;">Send us your photo and let's craft a beautiful, high-resolution digital artwork together.</p>
+    </div>
+    <div>
+      <a href="mailto:dviplex@gmail.com?subject=Inquiry%20for%20Custom%20Portrait" class="btn-primary" style="padding: 14px 28px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 12px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 8px 20px rgba(127,119,221,0.3); transition: transform 0.2s, box-shadow 0.2s;">Start Project Now →</a>
+    </div>
+  </div>
+
+  <div class="footer-grid">
+
+    <!-- Brand Column -->
+    <div>
+      <div class="footer-logo-txt" style="font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 16px;">Dvi<span style="color: #AFA9EC;">Plex</span></div>
+      <p class="footer-tagline" style="font-size: 14px; color: #a5a2c4; line-height: 1.8; max-width: 260px; margin-bottom: 24px;">Premium custom digital portrait art. Personalised with love, handcrafted by professionals, and delivered to your email inbox within 5 hours.</p>
+      <div class="footer-shop-btns">
+        <a href="mailto:dviplex@gmail.com" class="footer-btn-etsy" style="background: linear-gradient(135deg, #7F77DD 0%, #FF90E8 100%); font-weight: 700; color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(127,119,221,0.2);">📧 Email Us</a>
+      </div>
+    </div>
+
+    <!-- Styles Column -->
+    <div>
+      <h4 class="footer-col-title" style="font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 1.5px; margin-bottom: 24px;">Our Styles</h4>
+      <ul class="footer-style-list">
+        <li><a href="#style-wp" onclick="document.getElementById('style-wp').scrollIntoView({behavior:'smooth'}); return false;" style="font-size: 14px; color: #8c88ad; transition: color 0.2s;">✦ Watercolor Pastel Portrait</a></li>
+        <li><a href="#style-la" onclick="document.getElementById('style-la').scrollIntoView({behavior:'smooth'}); return false;" style="font-size: 14px; color: #8c88ad; transition: color 0.2s;">✦ Line Art Portrait</a></li>
+        <li><a href="#style-lp" onclick="document.getElementById('style-lp').scrollIntoView({behavior:'smooth'}); return false;" style="font-size: 14px; color: #8c88ad; transition: color 0.2s;">✦ Pet Line Art</a></li>
+        <li><a href="#style-ws" onclick="document.getElementById('style-ws').scrollIntoView({behavior:'smooth'}); return false;" style="font-size: 14px; color: #8c88ad; transition: color 0.2s;">✦ Watercolor Splash Portrait</a></li>
+        <li><a href="#style-ap" onclick="document.getElementById('style-ap').scrollIntoView({behavior:'smooth'}); return false;" style="font-size: 14px; color: #8c88ad; transition: color 0.2s;">✦ Anime Portrait</a></li>
+        <li><a href="#style-wa" onclick="document.getElementById('style-wa').scrollIntoView({behavior:'smooth'}); return false;" style="font-size: 14px; color: #8c88ad; transition: color 0.2s;">✦ Word Art Collage</a></li>
+        <li><a href="#style-cp" onclick="document.getElementById('style-cp').scrollIntoView({behavior:'smooth'}); return false;" style="font-size: 14px; color: #8c88ad; transition: color 0.2s;">✦ Caricature Portrait</a></li>
+      </ul>
+    </div>
+
+    <!-- Social Column -->
+    <div>
+      <h4 class="footer-col-title" style="font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 1.5px; margin-bottom: 24px;">Connect With Us</h4>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <a href="mailto:dviplex@gmail.com" class="footer-social-link" style="font-size: 14px; color: #8c88ad; transition: color 0.2s; display: inline-flex; align-items: center; gap: 10px;">📧 dviplex@gmail.com</a>
+        <a href="https://www.instagram.com/dvi_plex" target="_blank" class="footer-social-link" style="font-size: 14px; color: #8c88ad; transition: color 0.2s; display: inline-flex; align-items: center; gap: 10px;">📸 Instagram — dvi_plex</a>
+        <a href="https://www.facebook.com/profile.php?id=61590622757412" target="_blank" class="footer-social-link" style="font-size: 14px; color: #8c88ad; transition: color 0.2s; display: inline-flex; align-items: center; gap: 10px;">👍 Facebook — DviPlex</a>
+        <a href="https://tiktok.com/@dviplex4" target="_blank" class="footer-social-link" style="font-size: 14px; color: #8c88ad; transition: color 0.2s; display: inline-flex; align-items: center; gap: 10px;">🎵 TikTok — @dviplex4</a>
+        <a href="https://www.pinterest.com/dviplex_01" target="_blank" class="footer-social-link" style="font-size: 14px; color: #8c88ad; transition: color 0.2s; display: inline-flex; align-items: center; gap: 10px;">📌 Pinterest — dviplex_01</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+    <p style="font-size: 13px; color: #57556f; margin: 0;">© 2026 DviPlex · All Rights Reserved</p>
+    <p style="font-size: 13px; color: #57556f; margin: 0;">Premium Quality · Delivered Within 5 Hours · 100% Satisfaction Guaranteed · <a href="privacy-policy.html" style="color: #8c88ad; text-decoration: none; transition: color 0.2s;">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<!-- Load Dynamic Products Catalog -->
+<script src="products_catalog.js"></script>
+
+<script>
+  // Category Metadata Configuration
+  const CATEGORY_META = {
+    "caricature": {
+      title: "Caricature Portrait",
+      desc: "Fun and playful cartoon caricature portraits full of personality.",
+      tag: "Caricature"
+    },
+    "lineart": {
+      title: "Line Art Portrait",
+      desc: "Clean elegant black and white line illustration portraits.",
+      tag: "Line Art"
+    },
+    "pet lineart": {
+      title: "Pet Line Art",
+      desc: "Minimalist premium line art portraits for your beloved pets.",
+      tag: "Pet Line Art"
+    },
+    "watercolor splash": {
+      title: "Watercolor Splash Portrait",
+      desc: "Vibrant and expressive watercolor art with organic paint splashes.",
+      tag: "Watercolor Splash"
+    },
+    "watercolor pastel": {
+      title: "Watercolor Pastel Portrait",
+      desc: "Soft dreamy pastel watercolor portraits with gentle brush strokes.",
+      tag: "Watercolor Pastel"
+    },
+    "anime portrait": {
+      title: "Anime Portrait",
+      desc: "Premium Japanese anime style illustrated portraits.",
+      tag: "Anime Portrait"
+    },
+    "wordart": {
+      title: "Word Art",
+      desc: "Personalised photo collage inside custom word shapes.",
+      tag: "Word Art"
+    }
+  };
+
+  // Desired Display Order: Watercolor Pastel first, Caricature last
+  const CATEGORY_ORDER = [
+    "watercolor pastel",
+    "lineart",
+    "pet lineart",
+    "watercolor splash",
+    "anime portrait",
+    "wordart",
+    "caricature"
+  ];
+
+  // Specific IDs for navigation menu & footer smooth scrolls
+  const CATEGORY_IDS = {
+    "caricature": "style-cp",
+    "lineart": "style-la",
+    "pet lineart": "style-lp",
+    "watercolor splash": "style-ws",
+    "watercolor pastel": "style-wp",
+    "anime portrait": "style-ap",
+    "wordart": "style-wa"
+  };
+
+  // Helper to check for video format
+  function isVideo(path) {
+    return path && path.toLowerCase().endsWith('.mp4');
+  }
+
+  // Render Dynamic Catalog
+  function renderCatalog() {
+    const container = document.getElementById('gallery-container');
+    if (!container) return;
+
+    // Group items by category
+    const grouped = {};
+    PRODUCTS_CATALOG.forEach(item => {
+      if (!grouped[item.category]) {
+        grouped[item.category] = [];
+      }
+      grouped[item.category].push(item);
+    });
+
+    let html = '';
+
+    CATEGORY_ORDER.forEach(catKey => {
+      const items = grouped[catKey] || [];
+      const meta = CATEGORY_META[catKey];
+      if (!meta || items.length === 0) return;
+
+      const sectionId = CATEGORY_IDS[catKey];
+
+      html += `
+        <div class="style-section" id="${sectionId}">
+          <h3 class="section-title">${meta.title} <span class="product-count-badge">${items.length} Products</span></h3>
+          <p class="section-sub" style="text-align: left; margin-bottom: 24px;">${meta.desc}</p>
+          <div class="products-grid">
+      `;
+
+      items.forEach(p => {
+        const globalIdx = PRODUCTS_CATALOG.indexOf(p);
+        
+        // Show up to 6 thumbnails in preview strip to keep UI extremely clean
+        const previewMedia = p.media.slice(0, 6);
+
+        html += `
+          <div class="product-card" data-product-idx="${globalIdx}" onclick="openGallery(${globalIdx}, 0)">
+            <div class="product-media-wrapper" id="media-wrap-${globalIdx}" style="width: 100%; height: 210px; overflow: hidden; background: #fafafa; position: relative;">
+              ${isVideo(p.thumbnail) ? 
+                `<video class="product-img" src="${p.thumbnail}" muted autoplay loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>` : 
+                `<img class="product-img" src="${p.thumbnail}" alt="${p.title}" style="width: 100%; height: 100%; object-fit: cover;">`
+              }
+            </div>
+            <div class="product-thumbs">
+              ${previewMedia.map((m, mIdx) => {
+                if (isVideo(m)) {
+                  // Render video icon or video tag thumbnail
+                  return `
+                    <div style="position: relative; width: 38px; height: 38px; flex-shrink: 0;" onclick="event.stopPropagation(); changeCardMedia(${globalIdx}, ${mIdx}, this.querySelector('img'))">
+                      <img src="Images/WP Single.png" class="${mIdx === 0 ? 'active' : ''}" style="width: 100%; height: 100%; object-fit: cover;" alt="Video">
+                      <span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); color: #fff; font-size: 10px; border-radius: 6px;">▶</span>
+                    </div>
+                  `;
+                } else {
+                  return `<img src="${m}" class="${mIdx === 0 ? 'active' : ''}" onclick="event.stopPropagation(); changeCardMedia(${globalIdx}, ${mIdx}, this)" alt="">`;
+                }
+              }).join('')}
+            </div>
+            <div class="product-info">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span class="product-tag">${meta.tag}</span>
+                <span style="font-size: 12px; color: #F5A623; font-weight: 600; display: inline-flex; align-items: center; gap: 3px;">
+                  ★ ${p.rating.toFixed(1)} <span style="color: #999; font-weight: 400;">(${p.reviews})</span>
+                </span>
+              </div>
+              <div class="product-name" style="min-height: 42px; margin-bottom: 8px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${p.title}</div>
+              
+              <div class="product-price" style="display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+                <span style="font-size: 18px; font-weight: 700; color: #534AB7;">₹${p.price}</span>
+                <span style="text-decoration: line-through; color: #999; font-size: 13px;">₹${p.originalPrice}</span>
+                <span style="color: #D0021B; font-size: 11px; font-weight: 700; background: #FFF0F0; padding: 2px 6px; border-radius: 4px; margin-left: auto;">50% OFF</span>
+              </div>
+              
+              <div style="color: #D0021B; font-size: 11px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 4px;">
+                <span>⏱️</span> Limited Time Deal
+              </div>
+
+              <div class="product-features">Premium Digital Art · Personalised · Print Ready 300 DPI</div>
+              <button class="product-btn" onclick="event.stopPropagation(); window.location.href='order.html?productIdx=' + ${globalIdx}">Order Now →</button>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+
+    // Bind hover slideshow event listeners
+    const cards = container.querySelectorAll('.product-card');
+    cards.forEach(card => {
+      const globalIdx = parseInt(card.getAttribute('data-product-idx'));
+      card.addEventListener('mouseenter', () => {
+        startCardSlideshow(globalIdx, card);
+      });
+      card.addEventListener('mouseleave', () => {
+        stopCardSlideshow(globalIdx, card);
+      });
+    });
+  }
+
+  // Interactive Card media switcher on thumbnail click/hover
+  window.changeCardMedia = function(productIdx, mediaIdx, thumbElement) {
+    const product = PRODUCTS_CATALOG[productIdx];
+    if (!product) return;
+    const mediaUrl = product.media[mediaIdx];
+    const wrapper = document.getElementById(`media-wrap-${productIdx}`);
+    if (!wrapper) return;
+
+    // Remove active state from siblings
+    const card = wrapper.closest('.product-card');
+    const allThumbs = card.querySelectorAll('.product-thumbs img');
+    allThumbs.forEach(img => img.classList.remove('active'));
+    
+    // Set current active
+    thumbElement.classList.add('active');
+
+    // Replace wrapper contents
+    if (isVideo(mediaUrl)) {
+      wrapper.innerHTML = `<video class="product-img" src="${mediaUrl}" muted autoplay loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>`;
+    } else {
+      wrapper.innerHTML = `<img class="product-img" src="${mediaUrl}" alt="${product.title}" style="width: 100%; height: 100%; object-fit: cover;">`;
+    }
+  };
+
+  // Hover Slideshow State
+  const cardIntervals = {};
+  window.startCardSlideshow = function(productIdx, cardElement) {
+    console.log("startCardSlideshow triggered for index:", productIdx);
+    const product = PRODUCTS_CATALOG[productIdx];
+    if (!product || product.media.length <= 1) return;
+
+    let currentIdx = 0;
+    
+    if (cardIntervals[productIdx]) {
+      clearInterval(cardIntervals[productIdx]);
+    }
+
+    cardIntervals[productIdx] = setInterval(() => {
+      currentIdx = (currentIdx + 1) % product.media.length;
+      console.log("Cycling card image to:", currentIdx, "for product:", product.title);
+      
+      // Update wrapper
+      const wrapper = document.getElementById(`media-wrap-${productIdx}`);
+      if (wrapper) {
+        const mediaUrl = product.media[currentIdx];
+        if (isVideo(mediaUrl)) {
+          wrapper.innerHTML = `<video class="product-img" src="${mediaUrl}" muted autoplay loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>`;
+        } else {
+          wrapper.innerHTML = `<img class="product-img" src="${mediaUrl}" alt="${product.title}" style="width: 100%; height: 100%; object-fit: cover;">`;
+        }
+      }
+
+      // Update active thumbnail
+      const thumbs = cardElement.querySelectorAll('.product-thumbs img');
+      thumbs.forEach((t, tIdx) => {
+        if (tIdx === currentIdx) {
+          t.classList.add('active');
+        } else {
+          t.classList.remove('active');
+        }
+      });
+    }, 1200); // changes image every 1.2s
+  };
+
+  window.stopCardSlideshow = function(productIdx, cardElement) {
+    console.log("stopCardSlideshow triggered for index:", productIdx);
+    if (cardIntervals[productIdx]) {
+      clearInterval(cardIntervals[productIdx]);
+      delete cardIntervals[productIdx];
+    }
+
+    const product = PRODUCTS_CATALOG[productIdx];
+    if (!product) return;
+
+    const wrapper = document.getElementById(`media-wrap-${productIdx}`);
+    if (wrapper) {
+      const mediaUrl = product.media[0];
+      if (isVideo(mediaUrl)) {
+        wrapper.innerHTML = `<video class="product-img" src="${mediaUrl}" muted autoplay loop playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>`;
+      } else {
+        wrapper.innerHTML = `<img class="product-img" src="${mediaUrl}" alt="${product.title}" style="width: 100%; height: 100%; object-fit: cover;">`;
+      }
+    }
+
+    const thumbs = cardElement.querySelectorAll('.product-thumbs img');
+    thumbs.forEach((t, tIdx) => {
+      if (tIdx === 0) {
+        t.classList.add('active');
+      } else {
+        t.classList.remove('active');
+      }
+    });
+  };
+
+  // Gallery Modal Lightbox State
+  let currentProductIdx = 0;
+  let currentMediaIdx = 0;
+
+  const galleryModal = document.getElementById('galleryModal');
+  const galleryModalTitle = document.getElementById('galleryModalTitle');
+  const galleryModalClose = document.getElementById('galleryModalClose');
+  const galleryMainContent = document.getElementById('galleryMainContent');
+  const galleryPrev = document.getElementById('galleryPrev');
+  const galleryNext = document.getElementById('galleryNext');
+  const galleryCounter = document.getElementById('galleryCounter');
+  const galleryThumbsStrip = document.getElementById('galleryThumbsStrip');
+
+  window.openGallery = function(productIdx, mediaIdx) {
+    currentProductIdx = productIdx;
+    currentMediaIdx = mediaIdx;
+    updateGalleryContent();
+    galleryModal.classList.add('active');
+  };
+
+  function closeGallery() {
+    galleryModal.classList.remove('active');
+    galleryMainContent.innerHTML = ''; // Pause video/clear source
+  }
+
+  galleryModalClose.addEventListener('click', closeGallery);
+  galleryModal.addEventListener('click', (e) => {
+    if (e.target === galleryModal) closeGallery();
+  });
+
+  function updateGalleryContent() {
+    const product = PRODUCTS_CATALOG[currentProductIdx];
+    if (!product) return;
+
+    galleryModalTitle.textContent = product.title;
+
+    // Update specific description
+    const descContainer = document.getElementById('galleryModalDescription');
+    if (descContainer) {
+      descContainer.textContent = product.description || '';
+    }
+
+    const mediaUrl = product.media[currentMediaIdx];
+
+    // Load main slide content
+    if (isVideo(mediaUrl)) {
+      galleryMainContent.innerHTML = `
+        <video src="${mediaUrl}" class="gallery-main-video" controls autoplay loop playsinline style="max-width: 100%; max-height: 55vh; object-fit: contain; outline: none;"></video>
+      `;
+    } else {
+      galleryMainContent.innerHTML = `
+        <img src="${mediaUrl}" class="gallery-main-img" alt="${product.title}" style="max-width: 100%; max-height: 55vh; object-fit: contain;">
+      `;
+    }
+
+    // Update Counter
+    galleryCounter.textContent = `${currentMediaIdx + 1} / ${product.media.length}`;
+
+    // Update order button URL
+    const galleryOrderBtn = document.getElementById('galleryOrderBtn');
+    if (galleryOrderBtn) {
+      galleryOrderBtn.href = `order.html?productIdx=${currentProductIdx}`;
+    }
+
+    // Update modal pricing, ratings and discount details
+    const detailsContainer = document.getElementById('galleryModalDetails');
+    if (detailsContainer) {
+      detailsContainer.innerHTML = `
+        <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px;">
+          <span style="font-size: 20px; font-weight: 700; color: #534AB7;">₹${product.price}</span>
+          <span style="text-decoration: line-through; color: #999; font-size: 13px;">₹${product.originalPrice}</span>
+          <span style="color: #D0021B; font-size: 11px; font-weight: 700; background: #FFF0F0; padding: 2px 6px; border-radius: 4px;">50% OFF Limited Time Deal</span>
+        </div>
+        <div style="font-size: 12px; color: #F5A623; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+          ★ ${product.rating.toFixed(1)} <span style="color: #666; font-weight: 400;">(${product.reviews} reviews)</span>
+        </div>
+      `;
+    }
+
+    // Render lightbox thumbnails
+    let thumbsHtml = '';
+    product.media.forEach((m, idx) => {
+      if (isVideo(m)) {
+        thumbsHtml += `
+          <div style="position: relative; width: 56px; height: 56px; flex-shrink: 0;" onclick="selectGalleryMedia(${idx})">
+            <img src="Images/WP Single.png" class="${idx === currentMediaIdx ? 'active' : ''}" style="width: 56px; height: 56px; object-fit: cover; border-radius: 8px; border: 2.5px solid transparent;" alt="Video">
+            <span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); color: #fff; font-size: 12px; border-radius: 8px;">▶</span>
+          </div>
+        `;
+      } else {
+        thumbsHtml += `<img src="${m}" class="${idx === currentMediaIdx ? 'active' : ''}" onclick="selectGalleryMedia(${idx})" alt="">`;
+      }
+    });
+    galleryThumbsStrip.innerHTML = thumbsHtml;
+  }
+
+
+
+  window.selectGalleryMedia = function(mediaIdx) {
+    currentMediaIdx = mediaIdx;
+    updateGalleryContent();
+  };
+
+  galleryPrev.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const product = PRODUCTS_CATALOG[currentProductIdx];
+    if (!product) return;
+    currentMediaIdx = (currentMediaIdx - 1 + product.media.length) % product.media.length;
+    updateGalleryContent();
+  });
+
+  galleryNext.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const product = PRODUCTS_CATALOG[currentProductIdx];
+    if (!product) return;
+    currentMediaIdx = (currentMediaIdx + 1) % product.media.length;
+    updateGalleryContent();
+  });
+
+  // Mobile navigation drawer toggle logic
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
+
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navToggle.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!navMenu.contains(event.target) && !navToggle.contains(event.target)) {
+        closeMobileMenu();
+      }
+    });
+  }
+
+  function closeMobileMenu() {
+    if (navToggle && navMenu) {
+      navToggle.classList.remove('active');
+      navMenu.classList.remove('active');
+    }
+  }
+
+  // Keyboard navigation for Lightbox Gallery
+  document.addEventListener('keydown', (e) => {
+    if (!galleryModal.classList.contains('active')) return;
+    if (e.key === 'ArrowLeft') {
+      galleryPrev.click();
+    } else if (e.key === 'ArrowRight') {
+      galleryNext.click();
+    } else if (e.key === 'Escape') {
+      closeGallery();
+    }
+  });
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    renderCatalog();
+  });
+</script>
+</body>
+</html>

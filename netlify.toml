@@ -1,0 +1,24 @@
+# netlify.toml — DviPlex Website
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Folder that contains the Netlify Functions source files
+  functions = "netlify/functions"
+
+  # Static files are served from the project root
+  publish = "."
+
+# Increase the default function timeout to 20 s so large batches
+# (up to 5 images × 10 MB) have enough time to finish uploading to Cloudinary.
+[functions]
+  node_bundler = "esbuild"
+
+[functions."upload-images"]
+  timeout = 20   # seconds
+
+# Redirect all function calls to the correct endpoint (no change needed for
+# default /.netlify/functions/* routing — included here for clarity).
+[[redirects]]
+  from   = "/.netlify/functions/*"
+  to     = "/.netlify/functions/:splat"
+  status = 200
