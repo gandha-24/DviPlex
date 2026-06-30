@@ -1656,29 +1656,42 @@
       loadingTxt.textContent = 'Submitting order…';
 
       try {
-        // ── Post to Google Sheets via Apps Script ──
-        const sheetUrl = "https://script.google.com/macros/s/AKfycbxL3d_F3IRYbdpGf-CtCp9DV9Rh3fO40THukdp_s5AKn7r-BwAkHXWt2--YPaASbxNJPg/exec";
-
-        await fetch(sheetUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload),
+        // ── Save order via Netlify proxy → Google Apps Script → Google Sheets ──
+        // Using the Netlify function (instead of calling Apps Script directly) gives
+        // us real JSON responses, proper CORS, and a server-generated canonical order ID.
+        const saveRes = await fetch('/.netlify/functions/save-order', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload),
         });
 
-      } catch (err) {
-        console.warn('Sheets sync failed (non-blocking):', err);
-      }
+        const saveData = await saveRes.json().catch(() => null);
 
+        if (!saveRes.ok || saveData?.success === false) {
+          // Non-fatal: log the error but still show the success page so the
+          // customer's order isn't lost (images are already on Cloudinary).
+          const reason = saveData?.error || `HTTP ${saveRes.status}`;
+          console.warn('⚠️ Order sheet save failed (non-blocking):', reason);
+        } else {
+          // Use the canonical Order ID returned by the server (Apps Script generates it).
+          // This ensures what the customer sees matches what's in the spreadsheet.
+          if (saveData?.order_id) {
+            payload.orderId = saveData.order_id;
+          }
+          console.log('✅ Order saved to sheet:', saveData?.order_id || payload.orderId);
+        }
+
+      } catch (err) {
+        // Network-level failure — non-fatal, order images are already safe on Cloudinary.
+        console.warn('⚠️ Could not reach save-order function (non-blocking):', err.message);
+      }
 
       // ── Show success ──
       progressBar.classList.remove('active');
       setTimeout(() => {
         overlay.classList.remove('active');
         document.getElementById('orderFormWrap').style.display = 'none';
-        document.getElementById('displayOrderId').textContent = orderId;
+        document.getElementById('displayOrderId').textContent = payload.orderId;
         document.getElementById('successPage').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 800);
