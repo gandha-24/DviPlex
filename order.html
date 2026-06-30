@@ -1657,28 +1657,32 @@
 
       try {
         // ── Post to Google Sheets via Apps Script ──
-        const sheetUrl = "https://script.google.com/macros/s/AKfycbxL3d_F3IRYbdpGf-CtCp9DV9Rh3fO40THukdp_s5AKn7r-BwAkHXWt2--YPaASbxNJPg/exec"
+        const sheetUrl = "https://script.google.com/macros/s/AKfycbxL3d_F3IRYbdpGf-CtCp9DV9Rh3fO40THukdp_s5AKn7r-BwAkHXWt2--YPaASbxNJPg/exec";
+
         await fetch(sheetUrl, {
           method: 'POST',
           mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(payload),
         });
-      }
-    } catch (err) {
-      console.warn('Sheets sync failed (non-blocking):', err);
-    }
 
-    // ── Show success ──
-    progressBar.classList.remove('active');
-    setTimeout(() => {
-      overlay.classList.remove('active');
-      document.getElementById('orderFormWrap').style.display = 'none';
-      document.getElementById('displayOrderId').textContent = orderId;
-      document.getElementById('successPage').classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 800);
-  });
+      } catch (err) {
+        console.warn('Sheets sync failed (non-blocking):', err);
+      }
+
+
+      // ── Show success ──
+      progressBar.classList.remove('active');
+      setTimeout(() => {
+        overlay.classList.remove('active');
+        document.getElementById('orderFormWrap').style.display = 'none';
+        document.getElementById('displayOrderId').textContent = orderId;
+        document.getElementById('successPage').classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 800);
+    });
 
     /* ════════════════════════════════════════════
        SHEET CONFIG TOGGLE
