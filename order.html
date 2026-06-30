@@ -1565,32 +1565,29 @@
 
       if (!nameOk || !waOk || !emailOk || !dynamicOk) return;
 
-      // ── Build order payload ──
-      const orderId = generateOrderId();
+      // ── Build order payload (field names match the Apps Script / Netlify function schema) ──
       const now = new Date();
 
       const payload = {
-        orderId,
-        submissionDate: now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-        productName: activeProduct.title,
-        productCategory: activeProduct.categoryName,
-        productPrice: activeProduct.price,
-        productOriginal: activeProduct.originalPrice,
-        customerName: getVal('fullName'),
-        whatsapp: getVal('whatsapp'),
-        email: getVal('email'),
-        customName: getVal('customName'),
-        artworkSize: getVal('artworkSize'),
-        fontStyle: getVal('fontStyle'),
-        bubbleText: getVal('bubbleText'),
-        borderStyle: getVal('borderStyle'),
-        artColour: getVal('artColour'),
-        customSentence: getVal('customSentence'),
-        customSignature: getVal('customSignature'),
-        specialRequest: getVal('specialRequest'),
-        photoCount: uploadedFiles.length,
-        photoNames: uploadedFiles.map(f => f.name).join(', '),
-        orderStatus: 'Pending',
+        // order_id is intentionally omitted here so the server generates
+        // the canonical sequential ID (ORD000001, ORD000002 …).
+        name:             getVal('fullName'),
+        whatsapp_number:  getVal('whatsapp'),
+        email:            getVal('email'),
+        art_style:        activeProduct.categoryName,
+        name_in_art:      getVal('customName'),
+        size:             getVal('artworkSize'),
+        font_style:       getVal('fontStyle'),
+        art_color:        getVal('artColour'),
+        border_style:     getVal('borderStyle'),
+        bubble_text:      getVal('bubbleText'),
+        custom_text:      getVal('customSentence'),
+        custom_signature: getVal('customSignature'),
+        special_request:  getVal('specialRequest'),
+        product_name:     activeProduct.title,
+        product_price:    activeProduct.price,
+        // imageUrls populated after Cloudinary upload below
+        imageUrls: [],
       };
 
       console.log('📦 DviPlex Order Payload (pre-upload):', payload);
@@ -1646,52 +1643,59 @@
         return;
       }
 
-      // ── Attach uploaded URLs to payload ──
-      payload.photoUrls = photoUrls;
-      payload.photoCount = photoUrls.length;
-      // Keep photoNames as a readable fallback for the sheet
-      payload.photoNames = uploadedFiles.map(f => f.name).join(', ');
+      // ── Attach Cloudinary URLs to payload ──
+      payload.imageUrls = photoUrls;
 
       console.log('📦 DviPlex Order Payload (with URLs):', payload);
       loadingTxt.textContent = 'Submitting order…';
 
+      // ── Save order via Netlify function → Google Apps Script → Google Sheets ──
+      // This call is BLOCKING: a failure stops the process and shows an error.
+      let saveData;
       try {
-        // ── Save order via Netlify proxy → Google Apps Script → Google Sheets ──
-        // Using the Netlify function (instead of calling Apps Script directly) gives
-        // us real JSON responses, proper CORS, and a server-generated canonical order ID.
         const saveRes = await fetch('/.netlify/functions/save-order', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify(payload),
         });
 
-        const saveData = await saveRes.json().catch(() => null);
+        saveData = await saveRes.json().catch(() => null);
 
         if (!saveRes.ok || saveData?.success === false) {
-          // Non-fatal: log the error but still show the success page so the
-          // customer's order isn't lost (images are already on Cloudinary).
-          const reason = saveData?.error || `HTTP ${saveRes.status}`;
-          console.warn('⚠️ Order sheet save failed (non-blocking):', reason);
-        } else {
-          // Use the canonical Order ID returned by the server (Apps Script generates it).
-          // This ensures what the customer sees matches what's in the spreadsheet.
-          if (saveData?.order_id) {
-            payload.orderId = saveData.order_id;
-          }
-          console.log('✅ Order saved to sheet:', saveData?.order_id || payload.orderId);
+          // ── FATAL: stop the order and surface the error to the customer ──
+          const reason = saveData?.error || `Server error (HTTP ${saveRes.status}). Please try again.`;
+          console.error('🔴 Order save failed:', reason);
+          overlay.classList.remove('active');
+          progressBar.classList.remove('active');
+          progressFill.style.width = '0%';
+          submitBtn.disabled = false;
+          // Show the error below the submit button using the existing error mechanism
+          showFieldError('err-photos', '❌ Order could not be saved: ' + reason);
+          return; // abort — do NOT show the success page
         }
 
-      } catch (err) {
-        // Network-level failure — non-fatal, order images are already safe on Cloudinary.
-        console.warn('⚠️ Could not reach save-order function (non-blocking):', err.message);
+      } catch (networkErr) {
+        // Network-level failure (no internet, function crashed, etc.) — also fatal
+        console.error('🔴 Could not reach save-order function:', networkErr.message);
+        overlay.classList.remove('active');
+        progressBar.classList.remove('active');
+        progressFill.style.width = '0%';
+        submitBtn.disabled = false;
+        showFieldError('err-photos', '❌ Could not submit order: ' + networkErr.message + '. Please try again.');
+        return;
       }
 
-      // ── Show success ──
+      // ── SUCCESS ──
+      // Use the canonical Order ID generated server-side so what the customer
+      // sees matches exactly what is written in the Google Sheet.
+      const confirmedOrderId = saveData?.order_id || payload.order_id || 'ORD??????';
+      console.log('✅ Order saved to sheet:', confirmedOrderId);
+
       progressBar.classList.remove('active');
       setTimeout(() => {
         overlay.classList.remove('active');
         document.getElementById('orderFormWrap').style.display = 'none';
-        document.getElementById('displayOrderId').textContent = payload.orderId;
+        document.getElementById('displayOrderId').textContent = confirmedOrderId;
         document.getElementById('successPage').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 800);

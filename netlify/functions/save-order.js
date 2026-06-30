@@ -131,16 +131,16 @@ exports.handler = async (event) => {
     });
   }
 
-  /* ── Basic sanity check — must at least have an orderId ── */
-  if (!orderPayload.orderId) {
+  /* ── Basic sanity check — must at least have name and email ── */
+  if (!orderPayload.name || !orderPayload.email) {
     return respond(422, {
       success: false,
-      error:   'Payload is missing the required "orderId" field.',
+      error:   'Payload is missing the required "name" or "email" fields.',
     });
   }
 
   console.log(
-    `[save-order] Forwarding order "${orderPayload.orderId}" to Apps Script.`
+    `[save-order] Forwarding order for customer "${orderPayload.name}" to Apps Script.`
   );
 
   /* ── Forward to Google Apps Script ── */
@@ -186,7 +186,7 @@ exports.handler = async (event) => {
   /* ── Apps Script signalled a failure in the JSON body ── */
   if (appsScriptData.success === false) {
     console.error(
-      `[save-order] Apps Script reported failure for order "${orderPayload.orderId}":`,
+      `[save-order] Apps Script reported failure:`,
       appsScriptData.error
     );
     return respond(500, {
@@ -197,7 +197,7 @@ exports.handler = async (event) => {
 
   /* ── Success ── */
   console.log(
-    `[save-order] ✅ Order "${appsScriptData.order_id || orderPayload.orderId}" saved to sheet.`
+    `[save-order] ✅ Order "${appsScriptData.order_id || 'unknown'}" saved to sheet.`
   );
 
   // Return exactly what Apps Script returned so the browser can display the
