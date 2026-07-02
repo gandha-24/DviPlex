@@ -1,7 +1,7 @@
 /**
  * js/config.js
  * ─────────────────────────────────────────────────────────────────────────────
- * Central configuration file for DviPlex website.
+ * Central configuration file for Digital Art Studio website.
  * No API keys or secret credentials should be stored here.
  * All backend function URLs are configured in this single module.
  */
@@ -11,6 +11,7 @@ export const CONFIG = {
   UPLOAD_ENDPOINT: '/api/upload-images',
   SAVE_ORDER_ENDPOINT: '/api/save-order',
   PAYMENT_ENDPOINT: '/api/start-payment',
+  VERIFY_PAYMENT_ENDPOINT: '/api/verify-payment',
   EMAIL_ENDPOINT: '/api/send-email',
 
   // Validation constants

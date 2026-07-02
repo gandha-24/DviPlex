@@ -1,7 +1,7 @@
 /**
  * js/orderController.js
  * ─────────────────────────────────────────────────────────────────────────────
- * Main Client-Side Controller for DviPlex Order page.
+ * Main Client-Side Controller for Digital Art Studio Order page.
  * Orchestrates form setup, validations, previews, payment gateway flow,
  * file uploads, and sheet persistence.
  */
@@ -125,7 +125,7 @@ function initUploadListeners() {
 
   // Drag and drop event handlers
   uploadZone.addEventListener('dragenter', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
-  uploadZone.addEventListener('dragover',  e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+  uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
   uploadZone.addEventListener('dragleave', () => { uploadZone.classList.remove('dragover'); });
   uploadZone.addEventListener('drop', e => {
     e.preventDefault();
@@ -196,7 +196,7 @@ function renderPreviews() {
       <img src="${url}" alt="${file.name}" />
       <button type="button" class="remove-btn" data-index="${idx}" title="Remove">✕</button>
       <div class="file-name">${file.name}</div>`;
-    
+
     // Wire click manually to keep modules isolated
     const btn = item.querySelector('.remove-btn');
     btn.addEventListener('click', (e) => {
@@ -236,7 +236,7 @@ async function handleOrderSubmit(e) {
   // 1. VALIDATE FORM
   const contactsValid = validateContactFields();
   const dynamicsValid = validateDynamicFields(activeProduct.category);
-  const imagesValid   = validatePhotos(uploadedFiles.length, maxPhotos);
+  const imagesValid = validatePhotos(uploadedFiles.length, maxPhotos);
 
   if (!contactsValid || !dynamicsValid || !imagesValid) {
     showToast('Please correct the validation errors in the form.', 'error');
@@ -249,26 +249,26 @@ async function handleOrderSubmit(e) {
   // 2. CREATE ORDER PAYLOAD
   // Collect details for the payment transaction and sheet logging
   const orderDetails = {
-    name:             getVal('fullName'),
-    whatsapp_number:  getVal('whatsapp'),
-    email:            getVal('email'),
-    art_style:        activeProduct.categoryName,
-    name_in_art:      getVal('customName'),
-    size:             getVal('artworkSize'),
-    font_style:       getVal('fontStyle'),
-    art_color:        getVal('artColour'),
-    border_style:     getVal('borderStyle'),
-    bubble_text:      getVal('bubbleText'),
-    custom_text:      getVal('customSentence'),
+    name: getVal('fullName'),
+    whatsapp_number: getVal('whatsapp'),
+    email: getVal('email'),
+    art_style: activeProduct.categoryName,
+    name_in_art: getVal('customName'),
+    size: getVal('artworkSize'),
+    font_style: getVal('fontStyle'),
+    art_color: getVal('artColour'),
+    border_style: getVal('borderStyle'),
+    bubble_text: getVal('bubbleText'),
+    custom_text: getVal('customSentence'),
     custom_signature: getVal('customSignature'),
-    special_request:  getVal('specialRequest'),
-    product_name:     activeProduct.title,
-    product_price:    activeProduct.price,
-    imageUrls:        [] // to be appended after payment success + upload completes
+    special_request: getVal('specialRequest'),
+    product_name: activeProduct.title,
+    product_price: activeProduct.price,
+    imageUrls: [] // to be appended after payment success + upload completes
   };
 
   // 3. START PAYMENT
-  showLoading('Initializing payment gateway...');
+  showLoading('Creating Razorpay Order...');
   let paymentResult;
   try {
     paymentResult = await startPayment(orderDetails);
@@ -290,7 +290,7 @@ async function handleOrderSubmit(e) {
   orderDetails.payment_id = paymentResult.paymentId;
 
   // 5. UPLOAD IMAGES
-  showLoading('Payment successful! Uploading photos...');
+  showLoading('Uploading Images...');
   setUploadProgress(0);
 
   let photoUrls = [];
@@ -298,9 +298,9 @@ async function handleOrderSubmit(e) {
     photoUrls = await uploadImages(uploadedFiles, (pct) => {
       setUploadProgress(pct);
       if (pct >= 100) {
-        showLoading('Processing photos and saving order details...');
+        showLoading('Uploading Images...');
       } else {
-        showLoading(`Uploading reference photos (${pct}%)`);
+        showLoading(`Uploading Images (${pct}%)`);
       }
     });
   } catch (uploadErr) {
@@ -317,7 +317,7 @@ async function handleOrderSubmit(e) {
   orderDetails.imageUrls = photoUrls;
 
   // 6. SAVE ORDER
-  showLoading('Saving your portrait order details...');
+  showLoading('Saving Order...');
   let saveResult;
   try {
     saveResult = await saveOrder(orderDetails);
@@ -337,13 +337,20 @@ async function handleOrderSubmit(e) {
   sendConfirmationEmail({
     ...orderDetails,
     orderId: saveResult.orderId
-  }).catch(e => console.warn('[Controller] Send email trigger failed:', e));
+  }).then(result => {
+    if (!result || !result.success) {
+      handleEmailFailure();
+    }
+  }).catch(e => {
+    console.warn('[Controller] Send email trigger failed:', e);
+    handleEmailFailure();
+  });
 
   // 8. SUCCESS PAGE
   setUploadProgress(0);
   setTimeout(() => {
     hideLoading();
-    
+
     // Hide form wrap, show success block, update receipt text
     const formWrap = document.getElementById('orderFormWrap');
     const successPage = document.getElementById('successPage');
@@ -356,4 +363,22 @@ async function handleOrderSubmit(e) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     showToast('Order placed successfully!', 'success');
   }, 500);
+}
+
+/**
+ * Handle failure in sending email confirmation without affecting saved order state.
+ */
+function handleEmailFailure() {
+  const errMsg = "Your order has been received successfully, but we couldn't send the confirmation email. Your order is safe.";
+  
+  // Show warning toast
+  showToast(errMsg, 'warning');
+
+  // Update success subheader text on the receipt page
+  const successSub = document.getElementById('successPage')?.querySelector('.success-sub');
+  if (successSub) {
+    successSub.textContent = errMsg;
+    successSub.style.color = 'var(--error)';
+    successSub.style.fontWeight = '600';
+  }
 }

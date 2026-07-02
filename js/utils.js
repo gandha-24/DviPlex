@@ -1,7 +1,7 @@
 /**
  * js/utils.js
  * ─────────────────────────────────────────────────────────────────────────────
- * UI and common utilities for DviPlex website.
+ * UI and common utilities for Digital Art Studio website.
  */
 
 import { CONFIG } from './config.js';

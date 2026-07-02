@@ -1,7 +1,7 @@
 /**
  * js/orderService.js
  * ─────────────────────────────────────────────────────────────────────────────
- * Order Service module for DviPlex website.
+ * Order Service module for Digital Art Studio website.
  * Saves final order details (including payment and image links) to the sheet.
  */
 
@@ -60,7 +60,7 @@ export async function saveOrder(orderPayload) {
 
   } catch (err) {
     console.warn(`[Order Service] Endpoint (${CONFIG.SAVE_ORDER_ENDPOINT}) failed. Returning simulated receipt.`, err);
-    
+
     // Fallback: local simulated response to allow frontend development.
     return {
       success: true,

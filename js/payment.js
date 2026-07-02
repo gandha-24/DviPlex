@@ -1,17 +1,18 @@
 /**
  * js/payment.js
  * ─────────────────────────────────────────────────────────────────────────────
- * Payment Service module for DviPlex website.
- * Prepares the frontend for future Razorpay API/Backend connection.
+ * Payment Service module for Digital Art Studio website.
+ * Handles Razorpay API checkout and verification.
  */
 
 import { CONFIG } from './config.js';
+import { showLoading, hideLoading } from './utils.js';
 
 /**
  * Start the payment checkout process.
- * Later, this function will call the Cloudflare Pages Functions payment API,
- * generate a Razorpay order, trigger the Razorpay checkout overlay modal,
- * and await payment verification.
+ * Connects to the Cloudflare Pages Functions payment API,
+ * generates a Razorpay order, triggers the Razorpay checkout overlay modal,
+ * and awaits payment verification.
  *
  * @param {object} order - Clean order payload (excluding uploaded image URLs)
  * @returns {Promise<{ success: boolean, paymentId: string, orderId: string }>}
@@ -21,58 +22,114 @@ export async function startPayment(order) {
     throw new Error('Invalid order payload for checkout.');
   }
 
-  try {
-    console.log('[Payment Service] Triggering checkout flow for order:', order);
+  console.log('[Payment Service] Initiating Razorpay order creation for:', order);
 
-    // Prepare to POST order details to payment gateway handler
-    const response = await fetch(CONFIG.PAYMENT_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        amount: order.product_price,
-        customerName: order.name,
+  // 1. Call start-payment API to get Razorpay order details
+  const response = await fetch(CONFIG.PAYMENT_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      amount: Number(order.product_price),
+      customerName: order.name,
+      email: order.email,
+      whatsapp: order.whatsapp_number
+    })
+  });
+
+  if (!response.ok) {
+    const errData = await response.json().catch(() => ({}));
+    const errText = errData.error || `HTTP error ${response.status}`;
+    throw new Error(errText);
+  }
+
+  const paymentData = await response.json();
+  if (!paymentData || !paymentData.success) {
+    throw new Error(paymentData?.error || 'Failed to create payment order.');
+  }
+
+  const { key, orderId, amount, currency } = paymentData;
+
+  // We hide the loader overlay while Razorpay UI is active.
+  hideLoading();
+
+  // 2. Open Razorpay Checkout popup and return a promise
+  return new Promise((resolve, reject) => {
+    const options = {
+      key: key,
+      amount: amount,
+      currency: currency,
+      name: "Digital Art Studio",
+      description: order.product_name || "Custom Digital Portrait",
+      order_id: orderId,
+      prefill: {
+        name: order.name,
         email: order.email,
-        whatsapp: order.whatsapp_number
-      })
+        contact: order.whatsapp_number
+      },
+      theme: {
+        color: "#7F77DD" // brand purple accent color
+      },
+      notes: {
+        order_id: orderId
+      },
+      handler: async function (response) {
+        // Step 3: Trigger payment verification loader overlay
+        showLoading('Payment Verification...');
+        try {
+          const verifyRes = await verifyPayment(response);
+          if (verifyRes && verifyRes.success) {
+            resolve({
+              success: true,
+              paymentId: response.razorpay_payment_id,
+              orderId: orderId
+            });
+          } else {
+            reject(new Error("Payment verification failed."));
+          }
+        } catch (err) {
+          reject(err);
+        }
+      },
+      modal: {
+        ondismiss: function () {
+          reject(new Error("Payment cancelled."));
+        }
+      }
+    };
+
+    const rzp = new window.Razorpay(options);
+
+    rzp.on('payment.failed', function (resp) {
+      reject(new Error(resp.error.description || "Payment failed. Please try again."));
     });
 
-    if (response.ok) {
-      const resText = await response.text();
-      let data = {};
-      try {
-        data = JSON.parse(resText);
-      } catch (_) {}
-      return {
-        success: data.success ?? true,
-        paymentId: data.paymentId || `PAY_GATE_${Date.now()}`,
-        orderId: data.orderId || ''
-      };
-    }
-
-    // Fallback: If endpoint doesn't exist yet (404/500/etc.), return mock success
-    // to keep the frontend operational for development.
-    console.warn(`[Payment Service] Endpoint (${CONFIG.PAYMENT_ENDPOINT}) not available. Falling back to mock payment.`);
-    return await simulatePaymentFlow(order);
-
-  } catch (err) {
-    console.warn('[Payment Service] Network connection failed. Simulating local mock payment.', err);
-    return await simulatePaymentFlow(order);
-  }
+    rzp.open();
+  });
 }
 
 /**
- * Simulate payment gateway delay.
- * Returns confirmation details.
+ * Verify payment with backend signature verification.
+ * 
+ * @param {object} rzpResponse - Response from Razorpay containing signature, payment_id, and order_id
+ * @returns {Promise<{ success: boolean }>}
  */
-function simulatePaymentFlow(order) {
-  return new Promise((resolve) => {
-    // Simulated short gateway response delay (0.8 s)
-    setTimeout(() => {
-      resolve({
-        success: true,
-        paymentId: `PAY_MOCK_${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
-        orderId: '' // Left blank, to be generated by sheets/save-order backend
-      });
-    }, 800);
+async function verifyPayment(rzpResponse) {
+  const response = await fetch(CONFIG.VERIFY_PAYMENT_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      razorpay_payment_id: rzpResponse.razorpay_payment_id,
+      razorpay_order_id: rzpResponse.razorpay_order_id,
+      razorpay_signature: rzpResponse.razorpay_signature
+    })
   });
+
+  if (!response.ok) {
+    const errData = await response.json().catch(() => ({}));
+    const errText = errData.error || `Verification failed with status ${response.status}`;
+    throw new Error(errText);
+  }
+
+  const data = await response.json();
+  return data;
 }

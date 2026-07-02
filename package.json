@@ -1,7 +1,7 @@
 {
-  "name": "dviplex-website",
+  "name": "Digital Art Studio-website",
   "version": "1.0.0",
-  "description": "DviPlex Custom Digital Portraits",
+  "description": "Digital Art Studio Custom Digital Portraits",
   "private": true,
   "dependencies": {},
   "engines": {

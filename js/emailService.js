@@ -1,7 +1,7 @@
 /**
  * js/emailService.js
  * ─────────────────────────────────────────────────────────────────────────────
- * Email Notification Service for DviPlex website.
+ * Email Notification Service for Digital Art Studio website.
  * Placeholder to send transactional notification emails.
  */
 
@@ -25,13 +25,15 @@ export async function sendConfirmationEmail(order) {
     });
 
     if (response.ok) {
-      console.log('[Email Service] Email API triggered successfully.');
-      return { success: true };
+      const data = await response.json().catch(() => ({}));
+      if (data && data.success) {
+        console.log('[Email Service] Email API triggered successfully.');
+        return { success: true };
+      }
     }
   } catch (err) {
-    console.warn('[Email Service] Email endpoint offline (expected placeholder behavior).');
+    console.error('[Email Service] Email endpoint failure:', err);
   }
 
-  // Always return success in placeholder state to keep flow running
-  return { success: true };
+  return { success: false };
 }

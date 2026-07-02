@@ -101,7 +101,7 @@ export async function onRequestPost(context) {
       }
 
       // Construct folder path
-      const safeFolder = `dviplex/orders/${String(tempId).replace(/[^a-zA-Z0-9_-]/g, '_')}`;
+      const safeFolder = `Digital Art Studio/orders/${String(tempId).replace(/[^a-zA-Z0-9_-]/g, '_')}`;
 
       // Sign the upload request parameters
       const timestamp = Math.round(Date.now() / 1000);
@@ -138,7 +138,7 @@ export async function onRequestPost(context) {
       let resData = {};
       try {
         resData = JSON.parse(resText);
-      } catch (_) {}
+      } catch (_) { }
 
       if (!res.ok) {
         const cloudErr = resData?.error?.message || resText || 'Cloudinary upload failed';

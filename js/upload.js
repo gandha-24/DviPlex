@@ -1,7 +1,7 @@
 /**
  * js/upload.js
  * ─────────────────────────────────────────────────────────────────────────────
- * Upload Service module for DviPlex website.
+ * Upload Service module for Digital Art Studio website.
  * Prepares the frontend for Cloudflare Pages Functions.
  */
 

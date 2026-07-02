@@ -31,22 +31,52 @@ export async function onRequestOptions() {
 export async function onRequestPost(context) {
   const { request, env } = context;
 
-  const apiKey = env.EMAIL_API_KEY;
-  const emailFrom = env.EMAIL_FROM;
+  const scriptUrl = env.GOOGLE_SCRIPT_URL;
+
+  if (!scriptUrl) {
+    return respond(500, {
+      success: false,
+      error: 'GOOGLE_SCRIPT_URL environment variable is not configured on the server.'
+    });
+  }
 
   try {
     const payload = await request.json();
 
-    console.log(`[Email API] Placeholder processing email send to: ${payload.email}`);
-    
-    if (!apiKey || !emailFrom) {
-      console.warn('[Email API] EMAIL_API_KEY or EMAIL_FROM missing. Working in dry-run mode.');
+    if (!payload.email) {
+      return respond(400, {
+        success: false,
+        error: 'Payload is missing required email field.'
+      });
     }
 
-    // Always succeed for placeholder execution
+    console.log(`[Email API] Forwarding email dispatch for order to Apps Script.`);
+
+    // Call Google Apps Script Web App URL with action=sendEmail
+    const response = await fetch(`${scriptUrl}?action=sendEmail`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      redirect: 'follow'
+    });
+
+    const resText = await response.text();
+    let resData = {};
+    try {
+      resData = JSON.parse(resText);
+    } catch (_) {}
+
+    if (!response.ok || resData.success === false) {
+      const scriptErr = resData?.error || resText || 'Apps Script email dispatch failed';
+      console.error('[Email API] Apps Script returned error:', scriptErr);
+      return respond(500, {
+        success: false,
+        error: `Email gateway error: ${scriptErr}`
+      });
+    }
+
     return respond(200, {
-      success: true,
-      message: 'Email confirmation skipped (placeholder service active).'
+      success: true
     });
 
   } catch (err) {

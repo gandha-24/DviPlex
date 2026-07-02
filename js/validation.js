@@ -1,7 +1,7 @@
 /**
  * js/validation.js
  * ─────────────────────────────────────────────────────────────────────────────
- * Form validation module for the DviPlex order flow.
+ * Form validation module for the Digital Art Studio order flow.
  */
 
 import { isWordArt } from './products.js';
@@ -83,7 +83,7 @@ export function validateContactFields() {
  */
 export function validateDynamicFields(category) {
   const cat = (category || '').toLowerCase();
-  
+
   if (isWordArt(cat)) {
     const sentenceOk = validateRequired('customSentence');
     const signatureOk = validateRequired('customSignature');
