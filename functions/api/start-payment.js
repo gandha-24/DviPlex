@@ -37,7 +37,7 @@ export async function onRequestPost(context) {
   try {
     const payload = await request.json();
     const amount = parseFloat(payload.amount);
-    
+
     if (isNaN(amount) || amount <= 0) {
       return respond(400, { success: false, error: 'Invalid transaction amount.' });
     }
@@ -75,22 +75,23 @@ export async function onRequestPost(context) {
     let resData = {};
     try {
       resData = JSON.parse(resText);
-    } catch (_) {}
+    } catch (_) { }
 
     if (!res.ok) {
       console.error('[Payment API] Razorpay returned error:', resText);
-      // Fallback to mock mode to keep development operational instead of crashing
-      return respond(200, {
-        success: true,
-        paymentId: `PAY_MOCK_FALLBACK_${Date.now()}`,
-        orderId: ''
+
+      return respond(500, {
+        success: false,
+        error: resText || "Unable to create Razorpay order."
       });
     }
 
     return respond(200, {
       success: true,
-      paymentId: '', // To be filled on checkout completion
-      orderId: resData.id // Razorpay Order ID (e.g. order_EKwx7jFqA2g21A)
+      key: keyId,
+      orderId: resData.id,
+      amount: resData.amount,
+      currency: resData.currency
     });
 
   } catch (err) {
