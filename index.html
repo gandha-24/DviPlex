@@ -1528,10 +1528,10 @@
       </div>
     </div>
     <div class="hero-imgs">
-      <div class="hero-img-card"><img src="Images/WP Single.png" alt="Watercolor Pastel Portrait"></div>
-      <div class="hero-img-card"><img src="Images/WS Single.png" alt="Watercolor Splash Portrait"></div>
-      <div class="hero-img-card"><img src="Images/LA Single.png" alt="Line Art Portrait"></div>
-      <div class="hero-img-card"><img src="Images/C Single.png" alt="Caricature Portrait"></div>
+      <div class="hero-img-card"><img src="Images/WP Single.webp" alt="Watercolor Pastel Portrait"></div>
+      <div class="hero-img-card"><img src="Images/WS Single.webp" alt="Watercolor Splash Portrait"></div>
+      <div class="hero-img-card"><img src="Images/LA Single.webp" alt="Line Art Portrait"></div>
+      <div class="hero-img-card"><img src="Images/C Single.webp" alt="Caricature Portrait"></div>
     </div>
   </section>
 
@@ -1605,10 +1605,10 @@
           Custom Design</a>
       </div>
       <div class="customize-imgs">
-        <img src="Products/Pet Line Art/LP Cat/1.png" alt="Custom Pet Portrait">
-        <img src="Images/WS Couple.png" alt="Custom Couple Portrait">
-        <img src="Images/W Mom.png" alt="Mom Photo Collage">
-        <img src="Images/LA Pet.png" alt="Pet Line Art Portrait">
+        <img src="Products/Pet Line Art/LP Cat/1.webp" alt="Custom Pet Portrait">
+        <img src="Images/WS Couple.webp" alt="Custom Couple Portrait">
+        <img src="Images/W Mom.webp" alt="Mom Photo Collage">
+        <img src="Images/LA Pet.webp" alt="Pet Line Art Portrait">
       </div>
     </div>
   </section>
@@ -1843,7 +1843,7 @@
                 // Render video icon or video tag thumbnail
                 return `
                     <div style="position: relative; width: 38px; height: 38px; flex-shrink: 0;" onclick="event.stopPropagation(); changeCardMedia(${globalIdx}, ${mIdx}, this.querySelector('img'))">
-                      <img src="Images/WP Single.png" class="${mIdx === 0 ? 'active' : ''}" style="width: 100%; height: 100%; object-fit: cover;" alt="Video">
+                      <img src="Images/WP Single.webp" class="${mIdx === 0 ? 'active' : ''}" style="width: 100%; height: 100%; object-fit: cover;" alt="Video">
                       <span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); color: #fff; font-size: 10px; border-radius: 6px;">▶</span>
                     </div>
                   `;
@@ -2078,7 +2078,7 @@
         if (isVideo(m)) {
           thumbsHtml += `
           <div style="position: relative; width: 56px; height: 56px; flex-shrink: 0;" onclick="selectGalleryMedia(${idx})">
-            <img src="Images/WP Single.png" class="${idx === currentMediaIdx ? 'active' : ''}" style="width: 56px; height: 56px; object-fit: cover; border-radius: 8px; border: 2.5px solid transparent;" alt="Video">
+            <img src="Images/WP Single.webp" class="${idx === currentMediaIdx ? 'active' : ''}" style="width: 56px; height: 56px; object-fit: cover; border-radius: 8px; border: 2.5px solid transparent;" alt="Video">
             <span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); color: #fff; font-size: 12px; border-radius: 8px;">▶</span>
           </div>
         `;
