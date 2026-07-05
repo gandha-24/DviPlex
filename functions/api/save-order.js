@@ -64,7 +64,7 @@ export async function onRequestPost(context) {
     let resData = {};
     try {
       resData = JSON.parse(resText);
-    } catch (_) {}
+    } catch (_) { }
 
     if (!response.ok || resData.success === false) {
       const scriptErr = resData?.error || resText || 'Apps Script save failed';
@@ -77,7 +77,7 @@ export async function onRequestPost(context) {
 
     return respond(200, {
       success: true,
-      order_id: resData.order_id || resData.orderId || 'ORD000000'
+      order_id: resData.order_id || resData.orderId || 'ORD0001012'
     });
 
   } catch (err) {
