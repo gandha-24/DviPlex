@@ -372,7 +372,7 @@ async function handleOrderSubmit(e) {
  */
 function handleEmailFailure() {
   const errMsg = "Your order has been received successfully, but we couldn't send the confirmation email. Your order is safe.";
-  
+
   // Show warning toast
   showToast(errMsg, 'warning');
 
