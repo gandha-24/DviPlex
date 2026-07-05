@@ -6,7 +6,7 @@
  * file uploads, and sheet persistence.
  */
 
-import { getProductImageLimit, getProductDynamicFieldsHTML, isWordArt } from './products.js';
+import { getProductImageLimit, getProductDynamicFieldsHTML, isWordArt, getProductSlug } from './products.js';
 import { validateContactFields, validateDynamicFields, validatePhotos, showFieldError, clearFieldError } from './validation.js';
 import { uploadImages } from './upload.js';
 import { startPayment } from './payment.js';
@@ -264,6 +264,8 @@ async function handleOrderSubmit(e) {
     special_request: getVal('specialRequest'),
     product_name: activeProduct.title,
     product_price: activeProduct.price,
+    base_url: window.location.origin,
+    product_slug: getProductSlug(activeProduct),
     imageUrls: [] // to be appended after payment success + upload completes
   };
 

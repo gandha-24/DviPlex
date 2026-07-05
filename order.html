@@ -7,9 +7,6 @@
   <title>Order | Digital Art Studio Custom Digital Portraits</title>
   <meta name="description"
     content="Place your custom digital portrait order at Digital Art Studio. Premium handcrafted digital art delivered within 5 hours." />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Great+Vibes&family=Pinyon+Script&family=Tangerine:wght@400;700&family=Sacramento&family=Allura&family=Alex+Brush&family=Pacifico&family=Caveat:wght@400;700&family=Dancing+Script:wght@400;700&family=Kaushan+Script&family=Yellowtail&family=Satisfy&display=swap"
-    rel="stylesheet" />
   <style>
     /* ──────────── RESET & BASE ──────────── */
     *,
@@ -45,7 +42,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Inter', sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       line-height: 1.6;
       min-height: 100vh;
     }
@@ -921,7 +918,7 @@
 
   <!-- NAV -->
   <nav class="nav">
-    <a href="index.html" class="nav-logo">Dvi<span>Plex</span></a>
+    <a href="index.html" class="nav-logo">Digital Art<span> Studio</span></a>
     <a href="index.html" class="nav-back">← Back to Gallery</a>
   </nav>
 
@@ -994,8 +991,8 @@
               </div>
               <div class="form-group">
                 <label class="form-label" for="whatsapp">WhatsApp Number <span class="req">*</span></label>
-                <input type="tel" id="whatsapp" name="whatsapp" class="form-control" placeholder="+91 98765 43210"
-                  autocomplete="tel" required />
+                <input type="tel" id="whatsapp" name="whatsapp" class="form-control" placeholder="e.g. 9876543210"
+                  autocomplete="tel" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required />
                 <span class="field-error" id="err-whatsapp">Please enter a valid WhatsApp number.</span>
               </div>
             </div>

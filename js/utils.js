@@ -100,7 +100,7 @@ export function showToast(message, type = 'info') {
     backgroundColor: theme.bg,
     color: '#ffffff',
     borderRadius: '10px',
-    fontFamily: "'Inter', sans-serif",
+    fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif',
     fontSize: '13px',
     fontWeight: '600',
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15)',

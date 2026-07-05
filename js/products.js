@@ -263,3 +263,35 @@ export function getProductDynamicFieldsHTML(product) {
     </div>
     ${getTrailingFields(false)}`;
 }
+
+/**
+ * Automatically generates a unique slug for a given product.
+ * Maps category/subfolder to predefined URL keywords (e.g. watercolor-pastel -> watercolor, watercolor-splash -> watersplash).
+ *
+ * @param {object} product - Product catalog database entry.
+ * @returns {string}
+ */
+export function getProductSlug(product) {
+  if (!product) return '';
+  const category = (product.category || '').toLowerCase();
+  const subfolder = (product.subfolder || '').toLowerCase();
+  
+  let prefix = category;
+  if (category === 'watercolor pastel') {
+    prefix = 'watercolor';
+  } else if (category === 'watercolor splash') {
+    prefix = 'watersplash';
+  } else if (category === 'anime portrait') {
+    prefix = 'anime';
+  } else if (category === 'pet lineart') {
+    prefix = 'pet-lineart';
+  } else if (category === 'line art' || category === 'lineart' || category === 'line art portrait') {
+    prefix = 'lineart';
+  }
+  
+  const cleanPrefix = prefix.replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  const cleanSubfolder = subfolder.replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  
+  return `${cleanPrefix}-${cleanSubfolder}`;
+}
+

@@ -1,0 +1,29 @@
+Hello {{customer_name}},
+
+Thank you for choosing Digital Art Studio ❤️
+
+Your artwork has been completed successfully.
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+Order Number
+{{order_id}}
+
+Artwork
+{{product_title}}
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+If you enjoyed your artwork, we would truly appreciate your feedback.
+
+Please click the link below to rate your experience.
+
+{{feedback_link}}
+
+Your feedback helps us improve and helps other customers choose our services.
+
+Thank you once again for supporting Digital Art Studio.
+
+Best Regards,
+
+Digital Art Studio Team

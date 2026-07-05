@@ -58,8 +58,18 @@ export function validateRequired(fieldId) {
  */
 export function validateContactFields() {
   const nameOk = validateRequired('fullName');
-  const waOk = validateRequired('whatsapp');
   const emailOk = validateRequired('email');
+
+  let waOk = validateRequired('whatsapp');
+  if (waOk) {
+    const whatsappEl = document.getElementById('whatsapp');
+    if (whatsappEl && whatsappEl.value.trim().length !== 10) {
+      showFieldError('err-whatsapp');
+      waOk = false;
+    } else {
+      clearFieldError('err-whatsapp');
+    }
+  }
 
   const emailEl = document.getElementById('email');
   let emailFormatOk = true;

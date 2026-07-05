@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Feedback | Digital Art Studio</title>
+  <meta name="description" content="We value your feedback. Please rate your custom portrait experience with Digital Art Studio." />
+  <style>
+    /* ──────────── RESET & BASE ──────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f8f7ff;
+      --surface: #ffffff;
+      --surface2: #f4f3fd;
+      --border: #e8e6f8;
+      --primary: #7F77DD;
+      --primary-light: #EEEDFE;
+      --primary-dark: #534AB7;
+      --text: #1a1a1a;
+      --muted: #777;
+      --muted2: #aaa;
+      --success: #22c55e;
+      --error: #e53935;
+      --radius: 14px;
+      --radius-sm: 10px;
+      --star-color: #F5A623;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ──────────── NAV ──────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span {
+      color: #7F77DD;
+    }
+
+    /* ──────────── CONTAINER ──────────── */
+    .container {
+      max-width: 580px;
+      width: 100%;
+      margin: 40px auto;
+      padding: 0 20px 60px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e8e6f8;
+      border-radius: var(--radius);
+      padding: 36px 30px;
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(127, 119, 221, 0.08);
+      position: relative;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-align: center;
+      color: #1a1a1a;
+    }
+
+    .card-subtitle {
+      font-size: 14.5px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    /* ──────────── STARS UI ──────────── */
+    .stars-label {
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 12px;
+      color: #1a1a1a;
+    }
+
+    .stars-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      direction: ltr;
+    }
+
+    .star {
+      font-size: 42px;
+      cursor: pointer;
+      color: #ddd;
+      transition: color 0.15s, transform 0.15s;
+      user-select: none;
+    }
+
+    .star:hover {
+      transform: scale(1.15);
+    }
+
+    .star.selected {
+      color: var(--star-color);
+    }
+
+    /* ──────────── FORM FIELDS ──────────── */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    .form-control {
+      background: #fff;
+      border: 1.5px solid #dddaf5;
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      color: #1a1a1a;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    .form-control::placeholder {
+      color: #bbb;
+    }
+
+    .form-control:focus {
+      border-color: #7F77DD;
+      box-shadow: 0 0 0 3px rgba(127, 119, 221, 0.10);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* ──────────── SUBMIT BUTTON ──────────── */
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: #7F77DD;
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 16px rgba(127, 119, 221, 0.28);
+    }
+
+    .btn-submit:hover {
+      background: #6b63cc;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(127, 119, 221, 0.38);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* ──────────── ERROR MESSAGES ──────────── */
+    .field-error {
+      font-size: 12px;
+      color: var(--error);
+      margin-top: 3px;
+      display: none;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    /* ──────────── SUCCESS BLOCK ──────────── */
+    .success-block {
+      display: none;
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    .success-block.active {
+      display: block;
+    }
+
+    .success-checkmark {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: #f0fdf4;
+      color: var(--success);
+      font-size: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      border: 2px solid #bbf7d0;
+    }
+
+    .success-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+
+    .success-text {
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 11px 24px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 13.5px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-home:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* ──────────── LOADING OVERLAY ──────────── */
+    .loading-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .loading-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .spinner {
+      width: 38px;
+      height: 38px;
+      border: 3.5px solid var(--primary-light);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 12px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    /* Toast container */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #333;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 13.5px;
+      font-weight: 500;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      z-index: 1000;
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+    }
+
+    .toast.active {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .toast.error {
+      background: var(--error);
+    }
+
+    .toast.success {
+      background: var(--success);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">Digital Art<span> Studio</span></a>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+    <div class="card">
+      
+      <!-- Loading indicator overlay -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div class="loading-text" id="loadingText">Loading order details…</div>
+      </div>
+
+      <!-- FEEDBACK FORM BLOCK -->
+      <div id="feedbackFormBlock">
+        <div class="card-title">Share Your Experience</div>
+        <div class="card-subtitle" id="feedbackGreeting">We'd love to hear your feedback on your custom portrait.</div>
+
+        <form id="feedbackForm" novalidate>
+          
+          <!-- Product Name Info Display -->
+          <div class="form-group" style="align-items: center; margin-bottom: 24px;">
+            <div id="productTitleDisplay" style="font-size: 15px; font-weight: 600; background: var(--surface2); padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border); color: var(--primary-dark);">
+              Loading Artwork Style…
+            </div>
+          </div>
+
+          <!-- Clickable Stars -->
+          <div class="form-group">
+            <div class="stars-label">How was your experience with this artwork?</div>
+            <div class="stars-container" id="starsContainer">
+              <span class="star" data-value="1">★</span>
+              <span class="star" data-value="2">★</span>
+              <span class="star" data-value="3">★</span>
+              <span class="star" data-value="4">★</span>
+              <span class="star" data-value="5">★</span>
+            </div>
+            <span class="field-error" id="err-rating">Please select a star rating.</span>
+          </div>
+
+          <!-- Optional Review Textarea -->
+          <div class="form-group">
+            <label class="form-label" for="reviewText">Review Comments <span class="opt">(Optional)</span></label>
+            <textarea id="reviewText" class="form-control" placeholder="What did you like about the artwork? How can we make your next experience even better?" rows="4"></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span>Submit Feedback</span> <span>→</span>
+          </button>
+
+        </form>
+      </div>
+
+      <!-- SUCCESS SCREEN -->
+      <div class="success-block" id="successBlock">
+        <div class="success-checkmark">✓</div>
+        <h2 class="success-title">Thank You!</h2>
+        <p class="success-text">Your feedback has been saved successfully. We appreciate you taking the time to share your review with us.</p>
+        <a href="index.html" class="btn-home">← Return to Gallery</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast for feedback alerts -->
+  <div class="toast" id="toast">Feedback submitted successfully.</div>
+
+  <!-- LOAD CATALOG -->
+  <script src="products_catalog.js"></script>
+
+  <!-- SCRIPT LOGIC -->
+  <script type="module">
+    import { CONFIG } from './js/config.js';
+
+    let selectedRating = 0;
+    let orderId = '';
+    let productSlug = '';
+    let resolvedProductName = 'Custom Artwork';
+    let customerName = '';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initQueryParameters();
+      initStars();
+      initForm();
+    });
+
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = message;
+      toast.className = `toast active ${type}`;
+      setTimeout(() => {
+        toast.classList.remove('active');
+      }, 3500);
+    }
+
+    function showLoading(text) {
+      const overlay = document.getElementById('loadingOverlay');
+      const label = document.getElementById('loadingText');
+      if (overlay) overlay.classList.add('active');
+      if (label) label.textContent = text;
+    }
+
+    function hideLoading() {
+      const overlay = document.getElementById('loadingOverlay');
+      if (overlay) overlay.classList.remove('active');
+    }
+
+    /**
+     * Reads query parameters from URL and kicks off order retrieval.
+     */
+    async function initQueryParameters() {
+      const params = new URLSearchParams(window.location.search);
+      orderId = (params.get('order') || '').trim();
+      productSlug = (params.get('product') || '').trim();
+
+      // Read name from URL params if available immediately
+      customerName = (params.get('name') || params.get('customer') || '').trim();
+
+      if (!orderId) {
+        showToast('Invalid feedback link: missing Order ID.', 'error');
+        document.getElementById('productTitleDisplay').textContent = 'Order ID missing';
+        document.getElementById('submitBtn').disabled = true;
+        return;
+      }
+
+      // 1. Try to find the product title in local catalog using the slug
+      const catalog = window.PRODUCTS_CATALOG || [];
+      const localProduct = catalog.find(p => p.slug === productSlug);
+      if (localProduct) {
+        resolvedProductName = localProduct.title;
+        document.getElementById('productTitleDisplay').textContent = resolvedProductName;
+      }
+
+      // 2. Fetch order metadata from the backend
+      showLoading('Loading order details…');
+      try {
+        const response = await fetch(`${CONFIG.GET_ORDER_ENDPOINT}?order=${encodeURIComponent(orderId)}`);
+        if (response.ok) {
+          const orderData = await response.json();
+          if (orderData.success) {
+            if (orderData.customer_name) {
+              customerName = orderData.customer_name;
+            }
+            if (orderData.product_name) {
+              resolvedProductName = orderData.product_name;
+              document.getElementById('productTitleDisplay').textContent = resolvedProductName;
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to fetch remote order details:', err);
+      } finally {
+        hideLoading();
+      }
+
+      // Greeting render
+      const greetingLabel = document.getElementById('feedbackGreeting');
+      if (customerName) {
+        greetingLabel.textContent = `Hi ${customerName}, we'd love to hear your feedback on your custom portrait.`;
+      } else {
+        greetingLabel.textContent = `We'd love to hear your feedback on your custom portrait.`;
+      }
+    }
+
+    /**
+     * Initializes stars mouse and click handlers.
+     */
+    function initStars() {
+      const stars = document.querySelectorAll('.star');
+      stars.forEach(star => {
+        star.addEventListener('click', (e) => {
+          selectedRating = parseInt(e.target.getAttribute('data-value'), 10);
+          updateStarsDisplay(selectedRating);
+          document.getElementById('err-rating').classList.remove('visible');
+        });
+      });
+    }
+
+    function updateStarsDisplay(rating) {
+      const stars = document.querySelectorAll('.star');
+      stars.forEach(star => {
+        const val = parseInt(star.getAttribute('data-value'), 10);
+        if (val <= rating) {
+          star.classList.add('selected');
+        } else {
+          star.classList.remove('selected');
+        }
+      });
+    }
+
+    /**
+     * Form submission pipeline.
+     */
+    function initForm() {
+      const form = document.getElementById('feedbackForm');
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Validate rating selection
+        if (selectedRating === 0) {
+          document.getElementById('err-rating').classList.add('visible');
+          showToast('Please select a star rating.', 'error');
+          return;
+        }
+
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        showLoading('Submitting your feedback…');
+
+        const payload = {
+          order_id: orderId,
+          product_name: resolvedProductName,
+          rating: selectedRating,
+          review: document.getElementById('reviewText').value.trim(),
+          feedback_date: new Date().toISOString()
+        };
+
+        try {
+          const response = await fetch(CONFIG.SAVE_FEEDBACK_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) {
+            throw new Error(`Server returned status ${response.status}`);
+          }
+
+          const resData = await response.json();
+          if (resData.success === false) {
+            throw new Error(resData.error || 'Failed to persist feedback.');
+          }
+
+          // Show success
+          showToast('Thank you for your feedback!', 'success');
+          document.getElementById('feedbackFormBlock').style.display = 'none';
+          document.getElementById('successBlock').classList.add('active');
+
+        } catch (err) {
+          console.error('[Feedback] Save error:', err);
+          showToast(err.message || 'Failed to submit feedback. Please try again.', 'error');
+          submitBtn.disabled = false;
+        } finally {
+          hideLoading();
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -13,6 +13,8 @@ export const CONFIG = {
   PAYMENT_ENDPOINT: '/api/start-payment',
   VERIFY_PAYMENT_ENDPOINT: '/api/verify-payment',
   EMAIL_ENDPOINT: '/api/send-email',
+  GET_ORDER_ENDPOINT: '/api/get-order',
+  SAVE_FEEDBACK_ENDPOINT: '/api/save-feedback',
 
   // Validation constants
   MAX_FILE_SIZE_BYTES: 10 * 1024 * 1024, // 10 MB per image

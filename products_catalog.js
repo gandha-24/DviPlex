@@ -1538,4 +1538,52 @@ const PRODUCTS_CATALOG = [
   }
 ];
 
+(function() {
+  function getProductSlug(product) {
+    if (!product) return '';
+    const category = (product.category || '').toLowerCase();
+    const subfolder = (product.subfolder || '').toLowerCase();
+    let prefix = category;
+    if (category === 'watercolor pastel') {
+      prefix = 'watercolor';
+    } else if (category === 'watercolor splash') {
+      prefix = 'watersplash';
+    } else if (category === 'anime portrait') {
+      prefix = 'anime';
+    } else if (category === 'pet lineart') {
+      prefix = 'pet-lineart';
+    } else if (category === 'line art' || category === 'lineart' || category === 'line art portrait') {
+      prefix = 'lineart';
+    }
+    const cleanPrefix = prefix.replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const cleanSubfolder = subfolder.replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    return `${cleanPrefix}-${cleanSubfolder}`;
+  }
+
+  // Generate a pool of unique realistic values between 101 and 499 (above 100 and below 500)
+  const pool = [];
+  for (let i = 101; i <= 499; i++) {
+    pool.push(i);
+  }
+
+  // Deterministic seed-based shuffle so numbers remain consistent on reload
+  let seed = 43210;
+  function random() {
+    let x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+  }
+
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    const temp = pool[i];
+    pool[i] = pool[j];
+    pool[j] = temp;
+  }
+
+  PRODUCTS_CATALOG.forEach((p, idx) => {
+    p.reviews = pool[idx % pool.length];
+    p.slug = getProductSlug(p);
+  });
+})();
+
 window.PRODUCTS_CATALOG = PRODUCTS_CATALOG;
