@@ -2146,9 +2146,54 @@
       }
     });
 
+    async function loadDynamicRatings() {
+      try {
+        const response = await fetch('/api/get-feedbacks');
+        if (!response.ok) return;
+        const resData = await response.json();
+        if (resData.success && Array.isArray(resData.feedbacks)) {
+          const feedbackMap = {};
+          resData.feedbacks.forEach(fb => {
+            const name = String(fb.product_name || '').trim().toLowerCase();
+            const rating = parseFloat(fb.rating);
+            if (name && !isNaN(rating)) {
+              if (!feedbackMap[name]) {
+                feedbackMap[name] = [];
+              }
+              feedbackMap[name].push(rating);
+            }
+          });
+
+          let updated = false;
+          PRODUCTS_CATALOG.forEach(p => {
+            const titleKey = String(p.title).trim().toLowerCase();
+            const newRatings = feedbackMap[titleKey];
+            if (newRatings && newRatings.length > 0) {
+              const origReviews = p.reviews;
+              const origRating = p.rating || 4.4;
+
+              const totalRatingSum = (origRating * origReviews) + newRatings.reduce((sum, r) => sum + r, 0);
+              const totalReviews = origReviews + newRatings.length;
+
+              p.reviews = totalReviews;
+              p.rating = totalRatingSum / totalReviews;
+              updated = true;
+            }
+          });
+
+          if (updated) {
+            renderCatalog();
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to load dynamic ratings:', err);
+      }
+    }
+
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
       renderCatalog();
+      loadDynamicRatings();
     });
   </script>
 </body>

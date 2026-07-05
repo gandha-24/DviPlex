@@ -101,6 +101,9 @@ function doPost(e) {
     } else if (action === 'saveFeedback') {
       result = handleSaveFeedback(postData);
       return jsonResponse(result);
+    } else if (action === 'getFeedbacks' || action === 'getRatings') {
+      result = getFeedbacksData();
+      return jsonResponse(result);
     } else if (action === 'sendEmail') {
       result = { success: true };
       if (typeof sendConfirmationEmail === 'function') {
@@ -397,44 +400,115 @@ function getOrderDetails(orderId) {
 }
 
 /**
- * Updates an order row with rating, review, and feedback timestamp.
+ * Open feedback sheet. Checks for 'feedback' or 'feedbacks' tab, auto-creating it if not found.
+ */
+function getFeedbackSheet() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  let sheet = ss.getSheetByName('feedback');
+  if (!sheet) {
+    sheet = ss.getSheetByName('feedbacks');
+  }
+  if (!sheet) {
+    sheet = ss.insertSheet('feedback');
+  }
+  
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['order_id', 'rating', 'feedback']);
+    sheet.getRange(1, 1, 1, 3)
+      .setFontWeight('normal')
+      .setBackground('#7F77DD')
+      .setFontColor('#ffffff')
+      .setHorizontalAlignment('center');
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+/**
+ * Appends order feedback rating and review text to the feedback tab.
  */
 function handleSaveFeedback(feedback) {
   try {
-    const sheet = getSheet();
-    const data = sheet.getDataRange().getValues();
-    if (data.length < 2) {
-      return { success: false, error: "No orders found in sheet." };
+    const feedbackSheet = getFeedbackSheet();
+    
+    const orderId = sanitize(feedback.order_id);
+    const rating = parseFloat(feedback.rating);
+    const reviewText = sanitize(feedback.review || feedback.feedback);
+
+    if (!orderId || isNaN(rating)) {
+      return { success: false, error: "Invalid order_id or rating." };
     }
 
-    const headers = getSheetHeaders(sheet);
-    const orderIdIdx = headers.indexOf("order_id");
-    const ratingIdx = headers.indexOf("rating");
-    const reviewIdx = headers.indexOf("review");
-    const dateIdx = headers.indexOf("feedback_date");
+    const headers = feedbackSheet.getRange(1, 1, 1, feedbackSheet.getLastColumn()).getValues()[0].map(h => String(h).trim().toLowerCase());
+    
+    const fbOrderIdIdx = headers.indexOf('order_id');
+    const fbRatingIdx = headers.indexOf('rating');
+    const fbFeedbackIdx = headers.indexOf('feedback');
 
-    if (orderIdIdx === -1) {
-      return { success: false, error: "order_id column not found in sheet." };
+    const newRow = new Array(headers.length).fill('');
+    if (fbOrderIdIdx !== -1) newRow[fbOrderIdIdx] = orderId;
+    if (fbRatingIdx !== -1) newRow[fbRatingIdx] = rating;
+    if (fbFeedbackIdx !== -1) newRow[fbFeedbackIdx] = reviewText;
+
+    feedbackSheet.appendRow(newRow);
+
+    return { success: true };
+  } catch (err) {
+    return { success: false, error: err.toString() };
+  }
+}
+
+/**
+ * Retrieves all order feedback ratings and reviews from the sheet tab.
+ */
+function getFeedbacksData() {
+  try {
+    const feedbackSheet = getFeedbackSheet();
+    const feedbackData = feedbackSheet.getDataRange().getValues();
+    if (feedbackData.length < 2) {
+      return { success: true, feedbacks: [] };
     }
 
-    const orderId = feedback.order_id;
-    let found = false;
-
-    for (let i = 1; i < data.length; i++) {
-      if (String(data[i][orderIdIdx]).trim() === String(orderId).trim()) {
-        if (ratingIdx !== -1) sheet.getRange(i + 1, ratingIdx + 1).setValue(feedback.rating);
-        if (reviewIdx !== -1) sheet.getRange(i + 1, reviewIdx + 1).setValue(feedback.review);
-        if (dateIdx !== -1) sheet.getRange(i + 1, dateIdx + 1).setValue(feedback.feedback_date || new Date().toISOString());
-        found = true;
-        break;
+    const orderSheet = getSheet();
+    const orderData = orderSheet.getDataRange().getValues();
+    const orderHeaders = getSheetHeaders(orderSheet);
+    
+    const orderIdIdx = orderHeaders.indexOf('order_id');
+    const productNameIdx = orderHeaders.indexOf('product_name');
+    
+    const orderToProductMap = {};
+    if (orderIdIdx !== -1 && productNameIdx !== -1) {
+      for (let i = 1; i < orderData.length; i++) {
+        const oId = String(orderData[i][orderIdIdx]).trim();
+        const pName = String(orderData[i][productNameIdx]).trim();
+        if (oId) {
+          orderToProductMap[oId] = pName;
+        }
       }
     }
 
-    if (!found) {
-      return { success: false, error: "Order ID not found." };
+    const fbHeaders = feedbackData[0].map(h => String(h).trim().toLowerCase());
+    const fbOrderIdIdx = fbHeaders.indexOf('order_id');
+    const fbRatingIdx = fbHeaders.indexOf('rating');
+    const fbFeedbackIdx = fbHeaders.indexOf('feedback');
+
+    const feedbacks = [];
+    for (let i = 1; i < feedbackData.length; i++) {
+      const oId = String(feedbackData[i][fbOrderIdIdx]).trim();
+      const rating = parseFloat(feedbackData[i][fbRatingIdx]);
+      const text = String(feedbackData[i][fbFeedbackIdx] || '').trim();
+      
+      if (oId && !isNaN(rating)) {
+        feedbacks.push({
+          order_id: oId,
+          product_name: orderToProductMap[oId] || '',
+          rating: rating,
+          feedback: text
+        });
+      }
     }
 
-    return { success: true };
+    return { success: true, feedbacks: feedbacks };
   } catch (err) {
     return { success: false, error: err.toString() };
   }
