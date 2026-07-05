@@ -193,10 +193,14 @@ export function getProductDynamicFieldsHTML(product) {
           <label class="form-label" for="borderStyle">Border Style <span class="req">*</span></label>
           <select id="borderStyle" class="form-control" required>
             <option value="">— Select Border Style —</option>
-            <option value="No Border">No Border (Clean)</option>
-            <option value="Thin Line Border">Thin Line Border</option>
-            <option value="Floral Decorative Border">Floral / Decorative Border</option>
-            <option value="Paw Print Border">Paw Print Border</option>
+            <option value="Wavy ribbon border">Wavy ribbon border</option>
+            <option value="Tiny paw print border">Tiny paw print border</option>
+            <option value="Bone pattern border">Bone pattern border</option>
+            <option value="Star pattern border">Star pattern border</option>
+            <option value="Rope border">Rope border</option>
+            <option value="Diamond pattern border">Diamond pattern border</option>
+            <option value="Cloud border">Cloud border</option>
+            <option value="Rainbow arch border">Rainbow arch border</option>
           </select>
           <span class="field-error" id="err-borderStyle">Please select a border style.</span>
         </div>

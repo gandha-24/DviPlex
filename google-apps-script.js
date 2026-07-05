@@ -228,7 +228,7 @@ function buildDynamicRow(sheet, order, orderId) {
   const productSlug = generateSlug(productName);
 
   // Generate feedback link automatically
-  const baseUrl = 'https://digitalartstudio.in';
+  const baseUrl = 'https://digitalartstudio.pages.dev';
   const feedbackLink = baseUrl + '/feedback.html?order=' + orderId + '&product=' + productSlug;
 
   // Generate email message template automatically
