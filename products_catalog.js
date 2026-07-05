@@ -15,7 +15,7 @@ const PRODUCTS_CATALOG = [
     ],
     "thumbnail": "Products/Anime/Cat/1.webp",
     "originalPrice": 199,
-    "price": 9,
+    "price": 5,
     "rating": 4.4,
     "reviews": 26,
     "description": "A stunning, personalized Japanese anime-style portrait featuring your beloved cat. Handcrafted with clean line art, vibrant cell shading, and custom aesthetic backgrounds."
@@ -1538,7 +1538,7 @@ const PRODUCTS_CATALOG = [
   }
 ];
 
-(function() {
+(function () {
   function getProductSlug(product) {
     if (!product) return '';
     const category = (product.category || '').toLowerCase();
