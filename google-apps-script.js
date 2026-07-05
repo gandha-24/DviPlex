@@ -105,11 +105,9 @@ function doPost(e) {
       result = getFeedbacksData();
       return jsonResponse(result);
     } else if (action === 'sendEmail') {
-      result = { success: true };
-      if (typeof sendConfirmationEmail === 'function') {
-        result = sendConfirmationEmail(postData);
-      }
-      return jsonResponse(result);
+      // Compatibility fallback: Email is now sent inline during order save.
+      // Simply return success to prevent duplicate sends or errors.
+      return jsonResponse({ success: true, message: 'Email sent automatically during order save.' });
     } else {
       // Default: Save order to sheet
       const sheet = getSheet();
@@ -123,10 +121,38 @@ function doPost(e) {
       const row = buildDynamicRow(sheet, postData, orderId);
       sheet.appendRow(row);
 
+      const lastRow = sheet.getLastRow();
+
+      /* ── Trigger Confirmation Email ── */
+      const emailPayload = {
+        ...postData,
+        orderId: orderId
+      };
+      
+      const emailResult = sendConfirmationEmail(emailPayload);
+      
+      const headers = getSheetHeaders(sheet);
+      const emailSentColIdx = headers.indexOf('conformation_email_sent') + 1;
+      const emailMsgColIdx = headers.indexOf('email_msg') + 1;
+
+      if (emailResult && emailResult.success) {
+        if (emailSentColIdx > 0) {
+          sheet.getRange(lastRow, emailSentColIdx).setValue('YES');
+        }
+      } else {
+        if (emailSentColIdx > 0) {
+          sheet.getRange(lastRow, emailSentColIdx).setValue('NO');
+        }
+        if (emailMsgColIdx > 0) {
+          const errorMsg = emailResult ? emailResult.error : 'Unknown email error';
+          sheet.getRange(lastRow, emailMsgColIdx).setValue('Error: ' + errorMsg);
+        }
+      }
+
       /* ── Auto-resize columns for readability (best-effort) ── */
       try { sheet.autoResizeColumns(1, sheet.getLastColumn()); } catch (_) { }
 
-      Logger.log('DviPlex: order saved — ' + orderId);
+      Logger.log('DviPlex: order saved & email triggered — ' + orderId);
 
       return jsonResponse({ success: true, order_id: orderId });
     }
