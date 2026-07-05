@@ -15,7 +15,7 @@ const PRODUCTS_CATALOG = [
     ],
     "thumbnail": "Products/Anime/Cat/1.webp",
     "originalPrice": 199,
-    "price": 5,
+    "price": 99,
     "rating": 4.4,
     "reviews": 26,
     "description": "A stunning, personalized Japanese anime-style portrait featuring your beloved cat. Handcrafted with clean line art, vibrant cell shading, and custom aesthetic backgrounds."
